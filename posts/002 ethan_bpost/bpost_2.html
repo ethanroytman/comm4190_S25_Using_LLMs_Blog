@@ -167,8 +167,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="can-chatgpt-solve-the-mini-a-step-by-step-analysis">Can ChatGPT Solve The Mini? A Step-by-Step Analysis</h2>
 <p>To test ChatGPT’s ability to solve crossword puzzles, I gave it the New York Times mini crossword and analyzed how it approached the clues. The goal was to see how well ChatGPT could infer words based on definitions and whether it could adjust when errors were identified. I also wanted to test if Chatgpt could understand the interactions between different words in columns and rows that intersect.</p>
 <hr>
-<section id="chatgpts-first-attempt" class="level3">
-<h3 class="anchored" data-anchor-id="chatgpts-first-attempt">ChatGPT’s First Attempt</h3>
+<section id="chatgpts-first-attempt" class="level4">
+<h4 class="anchored" data-anchor-id="chatgpts-first-attempt">ChatGPT’s First Attempt</h4>
 <p>Below is the crossword we are using for this test. It is Superbowl-themed (GO BIRDS) and over my past couple of years of doing the mini every day - I would say today is one of the easier ones. If I had to give it a Roytman-certified difficulty level it would be a 3/10.</p>
 <p><img src="Blank_Crossword_Real.png" width="50%"></p>
 <p>ChatGPT initially provided the following answers:</p>
@@ -187,16 +187,16 @@ ul.task-list li input[type="checkbox"] {
 <p>The issue was with <strong>7 Across (Opposing side)</strong>, where ChatGPT suggested <strong>FOE</strong>, which didn’t fit correctly with <strong>5 Down (Cook in the pan → FRY)</strong>.</p>
 <hr>
 </section>
-<section id="step-3-adjusting-the-answer" class="level3">
-<h3 class="anchored" data-anchor-id="step-3-adjusting-the-answer">Step 3: Adjusting the Answer</h3>
+<section id="first-correction" class="level4">
+<h4 class="anchored" data-anchor-id="first-correction">First Correction</h4>
 <p>After ChatGPT messed up I attempted to fix its mistake, giving it the following prompt: “Take into account the fact that the interactions between the two words. For example, Foe cant be 7a cause the row is 5 letters and the other letters in that word dont match. Solve it in regards to that not just the clue hints.”</p>
 <p>While Chat GPT did correctly replace <strong>FOE</strong> with a <strong>5-letter word</strong>, it still did not align correctly with the ending letter of <strong>FRY</strong>.</p>
 <p>Here’s ChatGPT’s incorrect revision:</p>
 <p><img src="First Revision.png" width="50%"></p>
 <hr>
 </section>
-<section id="step4-final-correction" class="level3">
-<h3 class="anchored" data-anchor-id="step4-final-correction">Step4: Final Correction</h3>
+<section id="final-correction" class="level4">
+<h4 class="anchored" data-anchor-id="final-correction">Final Correction</h4>
 <p>Once I highlighted that the revised answer still didn’t match, ChatGPT finally adjusted <strong>7 Across</strong> to <strong>ENEMY</strong>, which correctly fit the crossword constraints. I specifically pointed it out by prompting it with “the L in rival does not match with the Y in fry”. Chat GPT’s final <strong>correct</strong> response is below:</p>
 <p><img src="Final Attempt.png" width="50%"></p>
 <p>It seems that if I point out a specific letter mismatch, chat GPT is finally able to solve it. However, it is important to note that this is Chat GPT’s <strong>third</strong> attempt - meaning that through trial and error “enemy” may have been the only possible option remaining.</p>
