@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ethan Roytman">
+<meta name="dcterms.date" content="2024-02-08">
+<meta name="description" content="This post explores ChatGPT’s ability to solve crossword puzzles by analyzing its linguistic reasoning, word association skills, and pattern recognition. We start with simple clues to establish a baseline, then introduce more complex puzzles to test AI’s ability to infer word meanings, recognize themes, and leverage contextual hints. Our findings reveal key strengths and limitations in ChatGPT’s approach to crossword-solving.">
 
-<title>Ethan and LLMs – Ethans LLM Blog</title>
+<title>Can ChatGPT Crack Crosswords? Evaluating AI’s Linguistic and Logical Skills – Ethans LLM Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-dca09da5cc7aa06692243a19adf10cb8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-dca09da5cc7aa06692243a19adf10cb8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +69,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Ethans LLM Blog</span>
     </a>
   </div>
@@ -149,7 +92,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,203 +115,120 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Ethan and LLMs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Can ChatGPT Crack Crosswords? Evaluating AI’s Linguistic and Logical Skills</h1>
+                  <div>
+        <div class="description">
+          This post explores ChatGPT’s ability to solve crossword puzzles by analyzing its linguistic reasoning, word association skills, and pattern recognition. We start with simple clues to establish a baseline, then introduce more complex puzzles to test AI’s ability to infer word meanings, recognize themes, and leverage contextual hints. Our findings reveal key strengths and limitations in ChatGPT’s approach to crossword-solving.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">prompting</div>
+                <div class="quarto-category">linguistics</div>
+                <div class="quarto-category">puzzles</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ethan Roytman </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 8, 2024</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="TExNcw==">LLMs <span class="quarto-category-count">(4)</span></div><div class="category" data-category="bGluZ3Vpc3RpY3M=">linguistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bG9naWM=">logic <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cHJvbXB0aW5n">prompting <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cHV6emxlcw==">puzzles <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="can-chatgpt-solve-the-mini-a-step-by-step-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="can-chatgpt-solve-the-mini-a-step-by-step-analysis">Can ChatGPT Solve The Mini? A Step-by-Step Analysis</h2>
+<p>To test ChatGPT’s ability to solve crossword puzzles, I gave it the New York Times mini crossword and analyzed how it approached the clues. The goal was to see how well ChatGPT could infer words based on definitions and whether it could adjust when errors were identified. I also wanted to test if Chatgpt could understand the interactions between different words in columns and rows that intersect.</p>
+<hr>
+<section id="chatgpts-first-attempt" class="level3">
+<h3 class="anchored" data-anchor-id="chatgpts-first-attempt">ChatGPT’s First Attempt</h3>
+<p>Below is the crossword we are using for this test. It is Superbowl-themed (GO BIRDS) and over my past couple of years of doing the mini every day - I would say today is one of the easier ones. If I had to give it a Roytman-certified difficulty level it would be a 3/10.</p>
+<p><img src="Blank_Crossword_Real.png" width="50%"></p>
+<p>ChatGPT initially provided the following answers:</p>
+<ul>
+<li><p><strong>1A:</strong> CAT ✅ (Correct)</p></li>
+<li><p><strong>4A:</strong> CHIEF ✅ (Correct)</p></li>
+<li><p><strong>6A:</strong> LAMAR ✅ (Correct)</p></li>
+<li><p><strong>7A:</strong> FOE ❌ (Incorrect)</p></li>
+<li><p><strong>8A:</strong> TDS ✅ (Correct)</p></li>
+<li><p><strong>1D:</strong> CHANT ✅ (Correct)</p></li>
+<li><p><strong>2D:</strong> THREW ✅ (Correct)</p></li>
+<li><p><strong>3D:</strong> CASTS ✅ (Correct)</p></li>
+<li><p><strong>4D:</strong> CLE ✅ (Correct)</p></li>
+<li><p><strong>5D:</strong> FRY ✅ (Correct)</p></li>
+</ul>
+<p>The issue was with <strong>7 Across (Opposing side)</strong>, where ChatGPT suggested <strong>FOE</strong>, which didn’t fit correctly with <strong>5 Down (Cook in the pan → FRY)</strong>.</p>
+<hr>
+</section>
+<section id="step-3-adjusting-the-answer" class="level3">
+<h3 class="anchored" data-anchor-id="step-3-adjusting-the-answer">Step 3: Adjusting the Answer</h3>
+<p>After ChatGPT messed up I attempted to fix its mistake, giving it the following prompt: “Take into account the fact that the interactions between the two words. For example, Foe cant be 7a cause the row is 5 letters and the other letters in that word dont match. Solve it in regards to that not just the clue hints.”</p>
+<p>While Chat GPT did correctly replace <strong>FOE</strong> with a <strong>5-letter word</strong>, it still did not align correctly with the ending letter of <strong>FRY</strong>.</p>
+<p>Here’s ChatGPT’s incorrect revision:</p>
+<p><img src="First Revision.png" width="50%"></p>
+<hr>
+</section>
+<section id="step4-final-correction" class="level3">
+<h3 class="anchored" data-anchor-id="step4-final-correction">Step4: Final Correction</h3>
+<p>Once I highlighted that the revised answer still didn’t match, ChatGPT finally adjusted <strong>7 Across</strong> to <strong>ENEMY</strong>, which correctly fit the crossword constraints. I specifically pointed it out by prompting it with “the L in rival does not match with the Y in fry”. Chat GPT’s final <strong>correct</strong> response is below:</p>
+<p><img src="Final Attempt.png" width="50%"></p>
+<p>It seems that if I point out a specific letter mismatch, chat GPT is finally able to solve it. However, it is important to note that this is Chat GPT’s <strong>third</strong> attempt - meaning that through trial and error “enemy” may have been the only possible option remaining.</p>
+<hr>
+</section>
+<section id="conclusion-strengths-and-weaknesses-of-chatgpt-in-crossword-solving" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion-strengths-and-weaknesses-of-chatgpt-in-crossword-solving">Conclusion: Strengths and Weaknesses of ChatGPT in Crossword Solving</h3>
+<ol type="1">
+<li><strong>Strengths:</strong>
+<ul>
+<li>ChatGPT correctly inferred most words based on the clues.<br>
+</li>
+<li>It recognized word associations effectively (e.g., “Bengal or lion” → “CAT”).<br>
+</li>
+<li>It could adapt and revise answers based on feedback.</li>
+</ul></li>
+<li><strong>Weaknesses:</strong>
+<ul>
+<li>ChatGPT initially failed to check if its answers aligned across the grid.<br>
+</li>
+<li>Even after a revision, it still made a mistake by choosing a word of incorrect length.<br>
+</li>
+<li>Human intervention was required to get to the final correct solution, which may have resulted from trial and error.</li>
+</ul></li>
+</ol>
+<p>Overall, ChatGPT demonstrated strong <strong>linguistic reasoning</strong> and <strong>clue interpretation</strong> but struggled with <strong>spatial constraints</strong>, showing that while AI can assist in solving crosswords, human verification is still necessary.</p>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xpbmd1aXN0aWNzJTJDcHV6emxlcw==" data-listing-date-sort="1707350400000" data-listing-file-modified-sort="1739231020394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="533">
-<div class="thumbnail">
-<p><a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external"></a></p><a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">
-<p class="card-img-top"><img src="posts/002 ethan_bpost/Blank_Crossword_Real.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">Can ChatGPT Crack Crosswords? Evaluating AI’s Linguistic and Logical Skills</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bGluZ3Vpc3RpY3M='); return false;">
-linguistics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHV6emxlcw=='); return false;">
-puzzles
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">This post explores ChatGPT’s ability to solve crossword puzzles by analyzing its linguistic reasoning, word association skills, and pattern recognition. We start with simple clues to establish a baseline, then introduce more complex puzzles to test AI’s ability to infer word meanings, recognize themes, and leverage contextual hints. Our findings reveal key strengths and limitations in ChatGPT’s approach to crossword-solving.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">
-<div class="listing-date">
-Feb 8, 2024
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1739231020391" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="902">
-<div class="thumbnail">
-<p><a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external"></a></p><a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">
-<p class="card-img-top"><img src="posts/001_ethan_bpost/Scrabble_1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">Can ChatGPT Master Scrabble? Testing AI’s Spatial and Logical Reasoning</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">This post explores ChatGPT’s ability to solve Scrabble boards by analyzing its spatial reasoning, word-forming logic, and strategy execution. We start with a simple board to establish a baseline, then increase complexity to test AI’s ability to optimize moves, recognize constraints, and use premium tiles effectively. Our findings reveal key strengths and limitations in ChatGPT’s approach to word games.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">
-<div class="listing-date">
-Feb 5, 2024
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1706832000000" data-listing-file-modified-sort="1739231020395" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="./posts/002 ethan_bpost/epost_test.html" class="no-external"></a></p><a href="./posts/002 ethan_bpost/epost_test.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/002 ethan_bpost/epost_test.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/002 ethan_bpost/epost_test.html" class="no-external">A test post</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/002 ethan_bpost/epost_test.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/002 ethan_bpost/epost_test.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/002 ethan_bpost/epost_test.html" class="no-external">
-<div class="listing-date">
-Feb 2, 2024
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1706832000000" data-listing-file-modified-sort="1739231020383" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="450">
-<div class="thumbnail">
-<p><a href="./posts/000_test_post/index.html" class="no-external"></a></p><a href="./posts/000_test_post/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/000_test_post/gpt3-5.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/000_test_post/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/000_test_post/index.html" class="no-external">A test post</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/000_test_post/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/000_test_post/index.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/000_test_post/index.html" class="no-external">
-<div class="listing-date">
-Feb 2, 2024
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
