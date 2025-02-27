@@ -19,4 +19,5 @@ execute:
   freeze: auto
 
 listing:
-  fields: [title, author, date, categories]
+  fields: [title, author, date, categories, description] 
+  sort: "date desc"  
