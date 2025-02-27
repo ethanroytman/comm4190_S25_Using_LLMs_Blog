@@ -18,4 +18,5 @@ format:
 execute:
   freeze: auto
 
-
+listing:
+  fields: [title, author, date, categories]
