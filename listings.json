@@ -24,12 +24,12 @@
   {
     "listing": "/about.html",
     "items": [
-      "/posts/test_post/index.html",
-      "/posts/002 ethan_bpost/bpost_2.html",
-      "/posts/003_ethan_bpost/Bpos3.html",
       "/index.html",
+      "/posts/004_ethan_bpost/Untitled.html",
+      "/posts/003_ethan_bpost/Bpos3.html",
+      "/posts/002 ethan_bpost/bpost_2.html",
       "/posts/001_ethan_bpost/bpost_1.html",
-      "/posts/004_ethan_bpost/Untitled.html"
+      "/posts/test_post/index.html"
     ]
   },
   {
