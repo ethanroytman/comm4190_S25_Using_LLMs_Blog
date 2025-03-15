@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Ethan Roytman">
-<meta name="dcterms.date" content="2025-02-13">
-<meta name="description" content="This post examines the ability of large language models to analyze geographic locations, describe their surroundings, and interpret spatial relationships.">
 
-<title>Can ChatGPT Get me to class? – Ethans LLM Blog</title>
+<title>untitled – Ethans LLM Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-title','listing-author','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -173,46 +170,7 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Can ChatGPT Get me to class?</h1>
-                  <div>
-        <div class="description">
-          This post examines the ability of large language models to analyze geographic locations, describe their surroundings, and interpret spatial relationships.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">LLMs</div>
-                <div class="quarto-category">geography</div>
-                <div class="quarto-category">AI reasoning</div>
-                <div class="quarto-category">spatial analysis</div>
-              </div>
-                  </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Ethan Roytman </p>
-            </div>
-    </div>
-      
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">February 13, 2025</p>
-      </div>
-    </div>
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
@@ -223,130 +181,18 @@ window.Quarto = {
 
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In our last in-class assignment I mentioned the Upenn campus and independently chatGPT mentioned biking down Walnut Street. This made me curious about how well Chatgpt can actually evaluate geographic contexts. In this post I will conduct a series of experiments by providing various locations and evaluating the model’s responses on different geographic aspects. This analysis will help us understand the strengths and limitations of LLMs in geographic reasoning and potential use cases for real-world applications.</p>
-</section>
-<section id="penn-campus-ball-knowledge" class="level2">
-<h2 class="anchored" data-anchor-id="penn-campus-ball-knowledge"><strong>Penn Campus Ball Knowledge</strong></h2>
-<p>First we are going to test for basic knowledge, then will ask increasingly more specific and context-based questions. We will start this experiment with its origin: Upenn Campus.</p>
-<p>I first asked <strong>“What are the major landmarks located around Upenn’s Campus”</strong></p>
-<p>Chatgpt gave a surprisingly contextualized answer. The response was:</p>
-<p>“The University of Pennsylvania (Penn) is located in the heart of Philadelphia’s University City neighborhood, and it is surrounded by several major landmarks. Here are some of the most notable ones:</p>
-<section id="on-or-adjacent-to-penns-campus" class="level3">
-<h3 class="anchored" data-anchor-id="on-or-adjacent-to-penns-campus"><strong>On or Adjacent to Penn’s Campus</strong></h3>
-<ol type="1">
-<li><strong>Locust Walk</strong> – A pedestrian pathway that runs through the heart of Penn’s campus, lined with historic buildings and student activity hubs.</li>
-<li><strong>Fisher Fine Arts Library</strong> – A striking red brick and terracotta building designed by Frank Furness, one of the most beautiful libraries on campus.</li>
-<li><strong>The Quad (University of Pennsylvania College Houses)</strong> – A historic dormitory complex that houses many first-year students.</li>
-<li><strong>Penn Museum (University of Pennsylvania Museum of Archaeology and Anthropology)</strong> – One of the world’s most renowned archaeology and anthropology museums, featuring collections from ancient Egypt, Mesopotamia, and more.</li>
-<li><strong>The Palestra</strong> – A historic basketball arena known as the “Cathedral of College Basketball.”</li>
-<li><strong>Franklin Field</strong> – The nation’s oldest operating football stadium, home to Penn’s football team and the Penn Relays.</li>
-<li><strong>Van Pelt Library</strong> – Penn’s central library, offering extensive research resources.</li>
-<li><strong>Irvine Auditorium</strong> – A historic venue for performances, lectures, and events, featuring stunning stained-glass windows.</li>
-<li><strong>Singh Center for Nanotechnology</strong> – A state-of-the-art research facility with unique modern architecture.</li>
-<li><strong>Perelman Center for Advanced Medicine</strong> – A top medical research and treatment facility affiliated with Penn Medicine.</li>
-</ol>
-</section>
-<section id="nearby-landmarks-in-university-city" class="level3">
-<h3 class="anchored" data-anchor-id="nearby-landmarks-in-university-city"><strong>Nearby Landmarks in University City</strong></h3>
-<ol start="11" type="1">
-<li><strong>30th Street Station</strong> – A major Amtrak and regional rail hub, just a short walk from campus.</li>
-<li><strong>Cira Centre &amp; Cira Green</strong> – A rooftop park with great views of the city skyline, located near 30th Street Station.</li>
-<li><strong>Schuylkill River Trail</strong> – A scenic walking, running, and biking trail along the Schuylkill River.</li>
-<li><strong>The Philadelphia Museum of Art &amp; Rocky Steps</strong> – Located a short distance away along the Benjamin Franklin Parkway.</li>
-<li><strong>Drexel University</strong> – Penn’s neighboring university, located just to the north of campus.</li>
-</ol>
-<p>Would you like recommendations on things to see or do around campus?”</p>
-<p>I was pleasantly surprised by this answer, however, I think its level of knowledge is still less than a Upenn student’s. Specifically, if I were to ask a Penn student for landmarks around campus they probably wouldn’t mention “The Palestra” and “Singh Center for Nanotechnology” nor would they mention any dorms/lecture halls. They would maybe mention something that is more intrinsic to Penn culture like Ben Frank. Also for nearby landmarks, I doubt a Penn student would say Drexel or 30th Street Station and maybe would answer Rittenhouse Square. Because of this, I am going to follow up and ask the following question:</p>
-<p><strong>Now answer in the context of a Upenn student, what would you describe as 5 community staples of Penn Campus.</strong></p>
-<p>Chatgpt answered with the following:</p>
-<p>“As a Penn student, five community staples on campus that define the Penn experience would be:</p>
-<ol type="1">
-<li><p><strong>Locust Walk</strong> – The heart of campus life, where students pass through daily to get to class, stop by club tables, or run into friends. During events like Spring Fling and Hey Day, it transforms into a hub of celebration.</p></li>
-<li><p><strong>Houston Hall</strong> – The country’s first student union and a go-to spot for students to grab food, study, or meet up with friends. It houses several dining options, study spaces, and is home to many student organization meetings.</p></li>
-<li><p><strong>The Quad (University of Pennsylvania College Houses)</strong> – A defining first-year experience. Living in the Quad is almost a rite of passage, and the iconic red-brick buildings and central green spaces make it a central community hub for freshmen.</p></li>
-<li><p><strong>Van Pelt Library</strong> – The ultimate study spot with a space for every type of student, from the bustling first floor to the silence of the sixth. Students often joke about “living” here during finals season.</p></li>
-<li><p><strong>Wawa (38th &amp; Spruce)</strong> – More than just a convenience store, this Wawa is a beloved late-night food stop for Penn students. Whether it’s post-party hoagies, a quick coffee before class, or a mid-study snack run, this location is a true campus staple.</p></li>
-</ol>
-<p>Each of these places holds a special significance in student life, creating shared experiences that define the Penn community. Would you like recommendations for more niche or lesser-known spots?”</p>
-<p>With this “Penn student” directive language, Chatgpt actually gave a really good answer. All of the locations that it mentioned are trademarks of the Upenn experience - particularly the iconic freshmen one. On top of that, I think knowing Quadwa is a nice cherry on top.</p>
-</section>
-</section>
-<section id="where-do-i-go" class="level2">
-<h2 class="anchored" data-anchor-id="where-do-i-go"><strong>WHERE DO I GO???</strong></h2>
-<p>Now that we have tested ChatGPTs ability to understand what is around Penn campus, we will test its ability to get ME around Penn Campus. Similar to last experiment we will start with an easy question and move up in dificulty. I started by asking ChatGPT:</p>
-<p><strong>“If I am at Rodin college house what is the most optimal way to get to Houston Hall as a Upenn Student.”</strong></p>
-<p>ChatGPT gave the following response:</p>
-<p>“If you’re at <strong>Rodin College House</strong>, the most optimal way to get to <strong>Houston Hall</strong> as a Penn student would be:</p>
-<section id="primary-route-fastest-most-direct-approx.-7-min-walk" class="level3">
-<h3 class="anchored" data-anchor-id="primary-route-fastest-most-direct-approx.-7-min-walk"><strong>Primary Route (Fastest &amp; Most Direct) – Approx. 7 min Walk</strong></h3>
-<ol type="1">
-<li>Exit <strong>Rodin</strong> and head <strong>south on 40th Street</strong> toward <strong>Locust Walk</strong>.</li>
-<li>Turn <strong>left (east) onto Locust Walk</strong> and continue straight.</li>
-<li>Walk along <strong>Locust Walk</strong>, passing <strong>Harrison College House</strong>, <strong>Gutmann College House</strong>, and the <strong>Quad</strong>.</li>
-<li><strong>Houston Hall</strong> is on your <strong>left</strong> just before reaching <strong>36th Street</strong>.</li>
-</ol>
-<p>This route is the best because: - <strong>Locust Walk is pedestrian-friendly</strong> and the main thoroughfare of campus. - It’s a <strong>scenic route</strong> where you’ll likely run into friends or student organizations tabling. - It’s <strong>well-lit and safe</strong>, making it a great option even at night.</p>
-</section>
-<section id="alternative-route-bad-weather-or-indoor-option" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-route-bad-weather-or-indoor-option"><strong>Alternative Route (Bad Weather or Indoor Option)</strong></h3>
-<p>If it’s raining or too cold, you can modify your route slightly: 1. Walk <strong>through the high-rises (Harrison, Harnwell, or Gutmann)</strong> and cut over to <strong>Locust Walk</strong> via <strong>Gutmann’s indoor connector</strong>. 2. Continue on <strong>Locust Walk</strong> to Houston Hall.</p>
-<p>Would you like an optimized route for any other locations?”</p>
-<p>Chatgpt messed up a couple of times in these directions. First, when you exit Rodin you can only go onto Locust Walk, meaning it’s not only unnecessary to go to 40th Street first, but it is impossible. On top of that, you would not pass Gutmann College house on the way. However, this situation might not be entirely ChatGPT’s fault; often when I plug in a college hall in Apple or Google Maps it will give me a more inefficient way of not using Locust - implying that Locust Walk might be the problem. I will ask ChatGPT <strong>how to get from 4040 Walnut Street to David Rittenhouse Laboratory</strong> to test that.</p>
-<p>ChatGPT Responded with:</p>
-<p>“To get from <strong>4040 Walnut Street</strong> to <strong>David Rittenhouse Laboratory (DRL)</strong> in the most <strong>optimal</strong> way as a Penn student, follow this route (<strong>~7 min walk</strong>):</p>
-</section>
-<section id="primary-route-fastest-most-direct" class="level3">
-<h3 class="anchored" data-anchor-id="primary-route-fastest-most-direct"><strong>Primary Route (Fastest &amp; Most Direct)</strong></h3>
-<ol type="1">
-<li>Start at <strong>4040 Walnut Street</strong> and <strong>walk east</strong> (toward Center City) on Walnut Street.</li>
-<li>Continue straight on Walnut Street for <strong>four blocks</strong>, passing <strong>40th St, 39th St, and 38th St</strong>.</li>
-<li>When you reach <strong>33rd Street</strong>, <strong>turn left (north)</strong> onto 33rd Street.</li>
-<li><strong>David Rittenhouse Laboratory (DRL)</strong> is immediately on your <strong>right</strong>, at <strong>209 S 33rd St</strong>.</li>
-</ol>
-</section>
-<section id="alternative-route-scenic-campus-walk" class="level3">
-<h3 class="anchored" data-anchor-id="alternative-route-scenic-campus-walk"><strong>Alternative Route (Scenic Campus Walk)</strong></h3>
-<ol type="1">
-<li>Walk <strong>south on 40th Street</strong> toward <strong>Locust Walk</strong>.</li>
-<li>Turn <strong>left (east) onto Locust Walk</strong> and walk <strong>straight</strong> through campus.</li>
-<li>Pass <strong>Gutmann College House, the Quad, and the Penn Bookstore</strong>.</li>
-<li>At <strong>33rd Street, turn left</strong>, and DRL will be <strong>straight ahead</strong>.</li>
-</ol>
-<p><strong>Which route is better?</strong> - <strong>The Walnut Street route is the fastest and most direct.</strong> - <strong>The Locust Walk route is more scenic</strong> and lets you walk through the heart of campus.</p>
-<p>Let me know if you need directions to another spot!”</p>
-<p>Its primary route is accurate, suggesting that Locust may have been the problem with the original experiment. However, when it suggested a scenic campus walk, it was correct about the directions but was wrong about passing the Penn Bookstore along the way. This suggests that it was able to figure out the exact directions but didn’t have the spatial awareness to understand the landscape on the way.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion"><strong>Conclusion</strong></h2>
-<p>ChatGPT did a pretty solid job with this experiment. It was able to recognize major landmarks around Penn and even adapt its responses when prompted to think like a Penn student. While its initial answer included places like The Palestra and Singh Center, which a student probably wouldn’t think to mention, its second response nailed it with community staples like Houston Hall, Van Pelt, and Quadwa. That shows it can adjust its answers based on context, which is impressive.</p>
-<p>On the navigation side, ChatGPT gave reasonable directions but had trouble with campus-specific details. The Rodin to Houston Hall route was a little off since it didn’t realize you can’t walk onto 40th Street directly from Rodin. But when asked about getting from 4040 Walnut to DRL, it mostly got the directions right, except for mistakenly mentioning passing the Penn Bookstore. This suggests it can process general routes well but struggles with spatial awareness of landmarks along the way.</p>
-<p>Overall, ChatGPT can recognize Penn landmarks and generate decent walking directions, but it’s still missing some of the instinctive knowledge a real Penn student would have. It seems to rely on external mapping data rather than lived experience, which leads to small but noticeable inaccuracies. While it’s good for general guidance, if you need the best route around campus, you’re still better off asking a fellow Penn student.</p>
 
 
-
-</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1742024418837">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../../posts/003_ethan_bpost/Untitled.html" class="no-external"></a>
-</h3>
-<div class="listing-subtitle">
-<a href="../../posts/003_ethan_bpost/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../../posts/003_ethan_bpost/Untitled.html" class="no-external">
-<div class="list quarto-listing-default">
 <div class="quarto-post image-right" data-index="0" data-categories="TExNcyUyQ2dlb2dyYXBoeSUyQ0FJJTIwcmVhc29uaW5nJTJDc3BhdGlhbCUyMGFuYWx5c2lz" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1742024418837" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1676">
 <div class="body">
-
+<h3 class="no-anchor listing-title">
+<a href="../../posts/003_ethan_bpost/Bpos3.html" class="no-external">Can ChatGPT Get me to class?</a>
+</h3>
 <div class="listing-subtitle">
-
+<a href="../../posts/003_ethan_bpost/Bpos3.html" class="no-external"></a>
 </div>
 <div class="listing-categories">
 <div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
@@ -363,11 +209,17 @@ spatial analysis
 </div>
 </div>
 <div class="listing-description">
-This post examines the ability of large language models to analyze geographic locations, describe their…</div></div><div class="metadata"><div class="listing-date"></div><div class="listing-author"></div></div></div></div><div class="listing-no-matching d-none"></div></a>
+<a href="../../posts/003_ethan_bpost/Bpos3.html" class="no-external">This post examines the ability of large language models to analyze geographic locations, describe their surroundings, and interpret spatial relationships.</a>
 </div>
 </div>
 <div class="metadata">
-<p><a href="../../posts/003_ethan_bpost/Untitled.html" class="no-external"></a></p><a href="../../posts/003_ethan_bpost/Untitled.html" class="no-external">
+<a href="../../posts/003_ethan_bpost/Bpos3.html" class="no-external">
+<div class="listing-date">
+Feb 13, 2025
+</div>
+<div class="listing-author">
+Ethan Roytman
+</div>
 </a>
 </div>
 </div>

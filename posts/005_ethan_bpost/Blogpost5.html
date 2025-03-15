@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ethan Roytman">
+<meta name="dcterms.date" content="2025-02-13">
+<meta name="description" content="This post will explore Chat GPT’s Deep Research ability comparing its normal functions.">
+
+<title>A Deep Dive into Deep Research – Ethans LLM Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cfb8d544f4d1b28d19f315c4af124635.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ethans LLM Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">A Deep Dive into Deep Research</h1>
+                  <div>
+        <div class="description">
+          This post will explore Chat GPT’s Deep Research ability comparing its normal functions.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">Emotional Recognition</div>
+                <div class="quarto-category">AI reasoning</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ethan Roytman </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 13, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This post will be somewhat unconventional. The nature of deep research is that it takes 5-15 minutes to do a deep dive into the internet and generates around 5000 words of analysis. I prompted Chat GPT 4.5 and Deep Research to create an analysis of Trump’s first 50 days in office focused on policy changes, executive orders, and socio-economic impact.</p>
+<p>Chat GPT 4.5 Response is below:</p>
+<p>In the first 50 days of President Donald Trump’s second term, his administration enacted a series of policy changes and executive orders with significant socio-economic implications.</p>
+<p><strong>Policy Changes and Executive Orders</strong></p>
+<ol type="1">
+<li><p><strong>Immigration</strong>: On his first day, President Trump declared a national emergency at the U.S.-Mexico border, reinstated the “remain in Mexico” policy, and designated Mexican drug cartels as terrorist organizations. He also signed an order to end birthright citizenship for descendants of illegal immigrants.</p></li>
+<li><p><strong>Trade and Tariffs</strong>: The administration imposed 25% tariffs on steel and aluminum imports and a 10% tariff on imports from China, aiming to reduce the flow of fentanyl into the U.S. Additionally, plans for reciprocal tariffs on foreign nations were announced, set to take effect in April.</p></li>
+<li><p><strong>Diversity, Equity, and Inclusion (DEI) Programs</strong>: An executive order was issued to dismantle DEI initiatives within the federal government, affecting workplace inclusivity efforts.</p></li>
+<li><p><strong>Energy and Environmental Policies</strong>: The administration declared a national energy emergency favoring fossil fuel production, rolled back electric vehicle targets, and halted wind energy projects.</p></li>
+</ol>
+<p><strong>Socio-Economic Impact</strong></p>
+<ol type="1">
+<li><p><strong>Economic Uncertainty</strong>: The new tariffs and strained international relations have contributed to economic uncertainty. Business and consumer sentiment have declined, manufacturing has weakened, and stock prices have dropped, potentially slowing consumer spending.</p></li>
+<li><p><strong>Stock Market Performance</strong>: The stock market experienced its worst start since 2009, with the S&amp;P 500 index falling by 6.4%, the Nasdaq Composite dropping by 11%, and the Dow Jones Industrial Average decreasing by 3.6%. This decline reflects investor concerns over potential economic downturns and policy ambiguities.</p></li>
+<li><p><strong>Consumer Prices and Inflation</strong>: The tariffs are expected to raise prices on various goods, fueling inflation and economic instability. Companies may pass on increased costs to consumers, leading to reduced consumer spending and confidence.</p></li>
+<li><p><strong>Employment</strong>: While employment growth persists, new tariffs and retaliatory actions may reverse this trend. The Federal Reserve faces challenges in navigating these uncertainties, with increased near-term recession risks.</p></li>
+<li><p><strong>International Relations</strong>: The administration’s policies have strained relations with key trading partners, leading to retaliatory measures. For example, Canadian travel to the U.S. has significantly declined following tariff tensions, potentially resulting in economic losses for the U.S. tourism industry.</p></li>
+</ol>
+<p>In summary, President Trump’s initial 50 days have been marked by assertive policy shifts and executive actions, leading to notable socio-economic consequences. The long-term effects of these policies remain to be seen as the administration continues to navigate complex domestic and international challenges.</p>
+<p>The Deep Research Response is Below:</p>
+</section>
+<section id="first-50-days-of-trumps-2025-presidency-policy-shifts-executive-orders-and-impact" class="level1">
+<h1>First 50 Days of Trump’s 2025 Presidency: Policy Shifts, Executive Orders, and Impact</h1>
+<p>In his first 50 days back in office (January 20 – March 10, 2025), President Donald Trump pursued a whirlwind of policy changes and executive actions. These moves spanned domestic and foreign affairs and were accompanied by immediate economic and social reactions. Below is an in-depth analysis of this period, organized into policy changes, key executive orders, and socio-economic impacts.</p>
+<section id="policy-changes" class="level2">
+<h2 class="anchored" data-anchor-id="policy-changes">Policy Changes</h2>
+<section id="domestic-policy-shifts" class="level3">
+<h3 class="anchored" data-anchor-id="domestic-policy-shifts">Domestic Policy Shifts</h3>
+<p>Trump rapidly reversed many of his predecessor’s domestic policies and introduced new initiatives reflecting his 2016–2020 agenda. <strong>Immigration enforcement tightened significantly.</strong> On Day&nbsp;1, Trump signed orders to <strong>“Secure Our Borders”</strong> and <strong>“Protect the American People Against Invasion,”</strong> reinstating strict border controls and nullifying several of President Biden’s 2021 immigration directives (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Permalink">Federal Register :: Executive Orders</a>). These actions restarted border wall construction and imposed tougher asylum and deportation rules, prompting legal challenges by immigrant advocacy groups. Trump also moved to <strong>realign the U.S. refugee program</strong>, slashing refugee admissions and revoking Biden’s earlier refugee order (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=PDF%203%20pages%20%20Permalink">Federal Register :: Executive Orders</a>).</p>
+<p><strong>Economic and regulatory policy</strong> took a sharp turn. The administration imposed a regulatory freeze and launched a “Department of Government Efficiency” initiative to shrink the federal bureaucracy (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Trump%20has%20heralded%20the%20end,for%20such%20affection%20that%20evening">Trump sets torrid pace in first 50 days in office | Capital Press</a>). A hiring near-freeze was implemented alongside plans to cut tens of thousands of federal jobs (e.g.&nbsp;a leaked memo outlined <strong>80,000 layoffs at the VA</strong> alone) (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=The%20Department%20of%20Veterans%20Affairs,Wednesday%20by%20The%20Associated%20Press">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). High-profile business advisor Elon Musk was tasked to lead the efficiency drive, even appearing with Trump in Congress as head of the new initiative (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=President%20Donald%20Trump%E2%80%99s%20shoutout%20to,gave%20him%20a%20standing%20ovation">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). Trump’s team also signaled intent to <strong>abolish the Department of Education</strong>, with a draft executive order directing the Education Secretary to plan the department’s closure (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=March%205%2C%202025">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). In tandem, Trump issued orders to <strong>“End Radical Indoctrination”</strong> in schools and promote “patriotic education,” targeting diversity curricula and COVID-related school policies (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). These moves pleased conservative constituencies but alarmed educators and civil rights groups.</p>
+<p>The administration swiftly <strong>dismantled diversity, equity, and inclusion (DEI) programs</strong> across the government. One early order <strong>revoked dozens of prior executive orders</strong> dating back to the 1960s that had mandated affirmative action and diversity initiatives (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Permalink">Federal Register :: Executive Orders</a>). Trump framed these reversals as “restoring merit-based opportunity,” effectively ending affirmative action requirements for federal contractors and agencies. He also ordered the elimination of federal “DEI” training and offices as <strong>“illegal and immoral discrimination programs”</strong> (<a href="https://ballotpedia.org/Executive_Order:_Ending_Radical_And_Wasteful_Government_DEI_Programs_And_Preferencing_(Donald_Trump,_2025)#:~:text=Executive%20Order%3A%20Ending%20Radical%20And,into%20virtually%20all">Executive Order: Ending Radical And Wasteful Government DEI …</a>). Additionally, Trump enforced a strict interpretation of gender and reproductive policies: he <strong>banned transgender women from women’s sports</strong> via executive order (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,of%20Women%27s%20Sports">Federal Register :: Executive Orders</a>), directed federal agencies to recognize only biological sex in policy (“restoring biological truth”) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,Truth%20to%20the%20Federal%20Government">Federal Register :: Executive Orders</a>), and moved to <strong>enforce the Hyde Amendment</strong> by barring federal funds for abortion-related services (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=FR%20Citation%3A%2090%20FR%208751,02175">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Revokes%3A%20EO%2014076%20%2C%20July,258%2C%20August%203%2C%202022">Federal Register :: Executive Orders</a>). Each of these actions was met with praise from social conservatives and protests from LGBTQ and women’s rights advocates.</p>
+<p>Trump’s <strong>energy and environmental policy</strong> reversed course from the prior administration. He declared a <strong>“National Energy Emergency”</strong> on Day&nbsp;1 to boost fossil fuel production (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) and signed an expansive <strong>“Unleashing American Energy”</strong> order that revoked a host of Biden-era climate initiatives (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Permalink">Federal Register :: Executive Orders</a>). This order opened federal lands and offshore areas to oil and gas drilling, rolled back emissions regulations, and scrapped considerations of climate change in agency decisions (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Permalink">Federal Register :: Executive Orders</a>). The administration also greenlit projects like the Keystone XL pipeline and Arctic oil development (“Unleashing Alaska’s Resource Potential”) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=PDF%205%20pages%20%20Permalink">Federal Register :: Executive Orders</a>). Fossil fuel industries and allied lawmakers applauded these steps, while environmental groups decried the U.S. exit from international climate efforts (the Day&nbsp;1 order <strong>“Putting America First in International Environmental Agreements”</strong> signaled withdrawal from the Paris Accord commitments) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=2025">Federal Register :: Executive Orders</a>).</p>
+<p><strong>Law and order policies</strong> were another focus. Trump moved to <strong>reinstate federal executions</strong>, ending a de facto moratorium on the death penalty (“Restoring the Death Penalty”) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). He championed gun rights with an order <strong>“Protecting Second Amendment Rights”</strong> that rolled back federal gun-control efforts (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). In addition, he established a White House faith-based office and ordered federal agencies to combat “anti-Christian bias,” signaling support for religious conservatives (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=PDF%204%20pages%20%20Permalink">Federal Register :: Executive Orders</a>). Each of these policy shifts set a new direction for federal agencies and often directly countermanded Biden administration priorities.</p>
+</section>
+<section id="foreign-policy-shifts" class="level3">
+<h3 class="anchored" data-anchor-id="foreign-policy-shifts">Foreign Policy Shifts</h3>
+<p>Trump’s early foreign policy moves reflected an “America First” approach marked by retrenchment from global institutions and confrontational trade measures. Immediately upon taking office, he <strong>withdrew the United States from the World Health Organization (WHO)</strong> (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,From%20the%20World%20Health%20Organization">Federal Register :: Executive Orders</a>), reversing the prior re-entry and cutting off U.S. funding to WHO. He also issued an order to <strong>“withdraw from and review support for certain United Nations organizations”</strong>, putting U.N.-affiliated agencies on notice and halting funds to groups like the National Endowment for Democracy (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=March%206%2C%202025">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). Allies and international observers expressed concern at these steps, warning of diminished U.S. influence in global health and democracy promotion.</p>
+<p>Trump quickly <strong>upended U.S. trade policy</strong>. In late January and early February, he signed a series of orders imposing new <strong>tariffs and duties</strong>: targeting China’s supply of fentanyl-related chemicals, he levied a tariff on Chinese goods to pressure Beijing (“Imposing Duties to Address the Synthetic Opioid Supply Chain in China”) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>); to compel Mexico to curb illegal migration, he announced tariffs on Mexican exports (“Duties to Address the Situation at Our Southern Border”) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>); and he placed duties on Canadian imports citing cross-border drug flows (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,Drugs%20Across%20Our%20Northern%20Border">Federal Register :: Executive Orders</a>). By early March, this escalated into a <strong>full-fledged trade war</strong>, as Trump hiked tariffs on China to 20% and slapped a new 25% duty on most Canadian and Mexican imports (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=Trump%20early%20this%20month%20triggered,Canada%20Agreement%20on%20trade">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). He partially walked back some tariffs (granting a short-term exemption for goods under the USMCA rules of origin) amid frantic negotiations (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=Trump%20early%20this%20month%20triggered,Canada%20Agreement%20on%20trade">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). Nonetheless, these actions marked “the end of the zero-tariff era,” as Trump declared, and signaled a return to protectionism (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Trump%20has%20heralded%20the%20end,for%20such%20affection%20that%20evening">Trump sets torrid pace in first 50 days in office | Capital Press</a>). U.S. farmers, in particular, were warned to “bear with” the short-term pain of lost export markets, as Trump acknowledged an adjustment period ahead (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=singled%20out%20for%20such%20affection,that%20evening">Trump sets torrid pace in first 50 days in office | Capital Press</a>). Indeed, European and other trading partners retaliated with tariffs of their own by March (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=Enhanced%20steel%20and%20aluminum%20tariffs,drawing%20swift%20retaliation%20from%20Europe">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>), straining relations with traditional allies.</p>
+<p>Beyond trade, Trump pursued an aggressive stance on national security. He re-designated the Yemeni rebel group <strong>Ansar Allah (the Houthis) as a Foreign Terrorist Organization</strong> (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>), reversing a Biden-era policy to delist them, despite humanitarian concerns in Yemen. He also sanctioned the <strong>International Criminal Court (ICC)</strong> and its officials (“Imposing Sanctions on the ICC”), reviving a dispute over ICC probes of U.S. personnel (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=PDF%205%20pages%20%20Permalink">Federal Register :: Executive Orders</a>). In the Middle East, Trump strengthened ties with Israel’s security establishment – for example, announcing an <strong>“Iron Dome for America”</strong> program to develop U.S. missile defenses modeled on Israel’s system (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). At the same time, he took a hard line against groups viewed as threats: a Day&nbsp;1 order directed the government to <strong>treat foreign drug cartels akin to terrorist organizations</strong>, facilitating tougher action against them (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). He also signaled a more combative posture toward adversaries in cyberspace and technology, ordering a review to ban or restrict apps like TikTok that are controlled by foreign rivals (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=90%20FR%208611%20FR%20Doc,02087">Federal Register :: Executive Orders</a>).</p>
+<p>Overall, Trump’s first 50 days saw a dramatic reorientation of U.S. policy. Domestically, his administration veered sharply right on immigration, social issues, and deregulation, while internationally it embraced unilateralism and economic nationalism. Many changes were enacted unilaterally via executive fiat, setting the stage for legal battles and political clashes in the months ahead.</p>
+</section>
+</section>
+<section id="executive-orders-key-actions-and-consequences" class="level2">
+<h2 class="anchored" data-anchor-id="executive-orders-key-actions-and-consequences">Executive Orders: Key Actions and Consequences</h2>
+<p>President Trump heavily relied on executive orders (EOs) to enact his agenda swiftly. By March 13, he had signed <strong>82 EOs in his first 50 days</strong>, an unprecedented pace (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Trump%20has%20moved%20too%20fast,year%20term">Trump sets torrid pace in first 50 days in office | Capital Press</a>). (For comparison, this nearly matched the total number of EOs in his entire first term.) He issued 26 EOs on Inauguration Day alone (<a href="https://ballotpedia.org/Executive_Order:_Securing_Our_Borders_(Donald_Trump,_2025)#:~:text=Executive%20Order%3A%20Securing%20Our%20Borders,to%20officials%20within%20the">Executive Order: Securing Our Borders (Donald Trump, 2025)</a>). These orders targeted a wide range of policies. Below are some of the most significant EOs from this period, along with their intent and immediate effects:</p>
+<ul>
+<li><p><strong>“Initial Rescissions of Harmful EOs and Actions” (EO 14148, Jan 20, 2025):</strong> This sweeping Day&nbsp;1 order <strong>nullified many of President Biden’s executive orders</strong> on climate, equity, immigration, and more (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Revokes%3A%20EO%2013985%20%2C%20January,276%2C%20January%2028%2C%202021">Federal Register :: Executive Orders</a>). It revoked at least 17 orders signed in 2021 (including orders on racial equity, climate regulations, and immigration) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Revokes%3A%20EO%2013985%20%2C%20January,276%2C%20January%2028%2C%202021">Federal Register :: Executive Orders</a>). <em>Intent:</em> Erase the prior administration’s policy legacy in one stroke. <em>Immediate consequence:</em> Dozens of federal initiatives (from rejoining the Paris Climate Accord to DEI programs in agencies) were halted or reversed overnight, prompting confusion within agencies and celebratory statements from Trump allies who opposed those initiatives.</p></li>
+<li><p><strong>“Securing Our Borders” (EO 14165, Jan 20, 2025):</strong> One of several immigration orders signed immediately, it directed the <strong>construction of new border barriers</strong> and deployment of resources to the southern border (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). It also ended the practice of catch-and-release and reinstated Trump-era asylum restrictions that Biden had rolled back. <em>Intent:</em> Fulfill campaign promises to crack down on illegal immigration and “finish the wall.” <em>Consequences:</em> Within days, contractors were notified to resume border wall projects, and border patrol began operating under tougher rules. Immigration advocacy groups filed lawsuits, and by mid-February, federal courts were reviewing challenges to these policies on humanitarian and legal grounds (e.g., questioning the reinstated asylum limits).</p></li>
+<li><p><strong>“Protecting the United States From Foreign Terrorists” (EO 14161, Jan 20, 2025):</strong> This order effectively <strong>reimposed a travel ban</strong> by suspending entry of individuals from several countries deemed high-risk for terrorism (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). It expanded on Trump’s 2017 travel ban, adding new vetting measures. <em>Intent:</em> Prevent terrorist infiltration by tightening visa issuance and entry from certain Middle Eastern and African nations. <em>Immediate consequence:</em> Travel from the affected countries was abruptly halted, stranding some travelers and drawing protest from civil liberties groups. The order faced immediate court challenges, recalling the legal battles from 2017.</p></li>
+<li><p><strong>“Unleashing American Energy” (EO 14154, Jan 20, 2025):</strong> A comprehensive energy order that <strong>rolled back environmental regulations</strong> and prioritized fossil fuel development (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=PDF%207%20pages%20%20Permalink">Federal Register :: Executive Orders</a>). It revoked numerous climate-related orders (11 of Biden’s climate EOs were listed for revocation) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=Permalink">Federal Register :: Executive Orders</a>) and instructed agencies to expedite permits for oil, gas, and coal projects. <em>Intent:</em> Promote energy independence and economic growth by removing “burdensome” green regulations. <em>Consequences:</em> The Department of Interior promptly restarted oil lease sales on federal land, and the EPA moved to loosen emissions standards. Oil and gas companies’ stock prices rose on anticipation of friendlier policy, while environmental organizations mobilized opposition, with some states preparing lawsuits citing environmental harm.</p></li>
+<li><p><strong>“Department of Government Efficiency” Initiative (EO 14158, Jan 20, 2025):</strong> This order created a new cross-agency task force (dubbed the <strong>Department of Government Efficiency, or “DOGE”</strong>) to <strong>cut federal jobs, slash regulations, and reorganize agencies</strong> (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). Elon Musk was appointed as an adviser to this effort, reflecting Trump’s outsourcing of innovation to private-sector figures (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=By%20Mike%20Murillo">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). <em>Intent:</em> Radically shrink the federal bureaucracy and reduce government spending. <em>Immediate consequence:</em> Agencies instituted near-freezes on hiring and began identifying programs for cuts. Federal employee unions reacted with outrage – by early March, union-led protests at state capitols and in D.C. drew thousands, decrying “illegal mass firings” and the influence of Musk in government (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=The%20protest%20was%20organized%20by,the%20workforce%20being%20let%20go">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>) (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=President%20Donald%20Trump%E2%80%99s%20shoutout%20to,gave%20him%20a%20standing%20ovation">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). Multiple lawsuits were filed claiming that summary dismissals of civil servants violated federal law, and some judges issued initial injunctions to temporarily halt certain layoffs (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Judges%20have%20slowed%20down%20Trump,pulled%20back%2C%20particularly%20on%20tariffs">Trump sets torrid pace in first 50 days in office | Capital Press</a>).</p></li>
+<li><p><strong>“Ending Radical and Wasteful Government DEI Programs” (EO 14151, Jan 20, 2025):</strong> This order abolished <strong>diversity, equity, and inclusion programs in federal agencies</strong>, labeling them as ideological indoctrination (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,Disclosure%20of%20Sensitive%20Governmental%20Information">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=FR%20Doc.%20Number%3A%202025">Federal Register :: Executive Orders</a>). It rescinded mandates that agencies consider diversity in hiring and contracting. <em>Intent:</em> Remove what Trump viewed as politicized “woke” programs from government. <em>Consequences:</em> Agencies like the State Department and Pentagon immediately canceled unconscious bias trainings and disbanded DEI councils. Supporters argued this restored focus on merit, but critics within and outside government warned it would foster discrimination. The abrupt cancellation of longstanding programs also led to uncertainty in compliance for federal contractors until guidance was clarified.</p></li>
+<li><p><strong>“Withdrawing the U.S. from the WHO” (EO 14155, Jan 20, 2025):</strong> As part of Trump’s foreign policy shift, this order <strong>formally initiated U.S. withdrawal from the World Health Organization</strong> and redirected global health funds elsewhere (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,From%20the%20World%20Health%20Organization">Federal Register :: Executive Orders</a>). <em>Intent:</em> Protest and cut ties with an international body Trump accused of mismanagement (echoing his 2020 stance during COVID-19). <em>Immediate consequence:</em> The State Department halted the disbursement of U.S. dues to WHO. Health experts warned that American absence could weaken global pandemic preparedness. By late February, Congress was debating measures to possibly override this decision, and some bipartisan concern emerged about losing influence to China in the WHO.</p></li>
+<li><p><strong>Tariff Orders (“Imposing Duties” series, Feb&nbsp;1–Feb&nbsp;6, 2025):</strong> Trump issued multiple executive orders to <strong>levy tariffs on imports</strong> from China, Mexico, and Canada under various justifications (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=,Drugs%20Across%20Our%20Northern%20Border">Federal Register :: Executive Orders</a>). For example, EO&nbsp;14195 imposed tariffs on Chinese goods in response to fentanyl trafficking (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>), and EO&nbsp;14194 put duties on Mexican imports to pressure Mexico on migration (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). <em>Intent:</em> Use executive authority to reshape trade terms and compel foreign cooperation on U.S. priorities. <em>Consequences:</em> These unilateral tariffs roiled markets and foreign relations. China and Mexico threatened retaliation, and Canada prepared WTO complaints. U.S. companies depending on imported inputs faced higher costs, and trade associations warned of supply chain disruptions. Within a month, Trump temporarily eased some tariffs amid legal scrutiny and negotiations (illustrating the on-and-off “whiplash” nature of his trade actions (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=There%20were%201,shaken%20business%20and%20consumer%20confidence">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>)).</p></li>
+</ul>
+<p>Each of these executive orders had immediate ripple effects. Supporters of Trump’s actions praised the decisive implementation of campaign promises. Opponents, however, turned to the courts: in fact, <strong>113 lawsuits were filed in the first 50 days</strong> against various Trump policies (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=number%20of%20executive%20orders%20he,year%20term">Trump sets torrid pace in first 50 days in office | Capital Press</a>). Judges issued early injunctions on some orders (e.g.&nbsp;blocking the freeze of certain congressionally approved funds and the firing of independent officials) (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Judges%20have%20slowed%20down%20Trump,pulled%20back%2C%20particularly%20on%20tariffs">Trump sets torrid pace in first 50 days in office | Capital Press</a>). The flurry of EOs underscored Trump’s strategy of governing by executive action and set the tone for a contentious start to the term.</p>
+</section>
+<section id="socio-economic-impact" class="level2">
+<h2 class="anchored" data-anchor-id="socio-economic-impact">Socio-Economic Impact</h2>
+<p>Trump’s initial policy shifts and orders had measurable impacts on economic indicators, business sentiment, and society in early 2025. The table below summarizes key economic metrics from the start of the term:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><strong>Indicator</strong></th>
+<th><strong>Jan 2025</strong></th>
+<th><strong>Feb–Mar 2025</strong></th>
+<th><strong>Trend/Notes</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Unemployment Rate</strong></td>
+<td>4.0% (Jan) ([US job openings rise, layoffs low before Trump policy shifts</td>
+<td>Reuters](https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=WASHINGTON%2C%20March%2011%20%28Reuters%29%20,sharp%20slowdown%20in%20economic%20activity))</td>
+<td>4.1% (Feb) (<a href="https://www.jpmorgan.com/insights/outlook/economic-outlook/jobs-report-february-2025#:~:text=Morgan%20www,month%2C">February 2025 Jobs Report: Economy Adds 151K Jobs - J.P. Morgan</a>)</td>
+</tr>
+<tr class="even">
+<td><strong>Jobs Added (nonfarm)</strong></td>
+<td>~125,000 (Jan) (<a href="https://www.cnn.com/business/live-news/us-jobs-report-february-2025/index.html#:~:text=The%20US%20economy%20added%20151%2C000,comes%20as%20the%20Trump">The US economy added 151,000 jobs last month and the … - CNN</a>)</td>
+<td>151,000 (Feb) (<a href="https://www.cnn.com/business/live-news/us-jobs-report-february-2025/index.html#:~:text=The%20US%20economy%20added%20151%2C000,comes%20as%20the%20Trump">The US economy added 151,000 jobs last month and the … - CNN</a>)</td>
+<td>276k jobs in first 2 months (↘&nbsp;19% YoY) (<a href="https://www.forbes.com/sites/dereksaul/2025/03/07/us-added-151000-jobs-as-unemployment-rose-to-41-in-february/#:~:text=U,year%20decrease">U.S. Added 151,000 Jobs As Unemployment Rose To 4.1 … - Forbes</a>).</td>
+</tr>
+<tr class="odd">
+<td><strong>Inflation (CPI, YoY)</strong></td>
+<td>3.0% (Jan) ([US consumer inflation slows in February; tariffs expected to boost prices</td>
+<td>Reuters](https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=egg%20prices%20on%20his%20first,day%20in%20office))</td>
+<td>2.8% (Feb) ([US consumer inflation slows in February; tariffs expected to boost prices</td>
+</tr>
+<tr class="even">
+<td><strong>Small Business Optimism</strong></td>
+<td>93.0 (index)<strong>¹</strong></td>
+<td>89.0 (index)<strong>¹</strong></td>
+<td>Declined for 3rd straight month amid policy uncertainty ([US job openings rise, layoffs low before Trump policy shifts</td>
+</tr>
+<tr class="odd">
+<td><strong>S&amp;P 500 Stock Index</strong></td>
+<td>~4,200 (Jan&nbsp;20)<strong>²</strong></td>
+<td>~3,900 (Mar&nbsp;10)<strong>²</strong></td>
+<td>≈10% drop; post-election gains erased by trade war ([US job openings rise, layoffs low before Trump policy shifts</td>
+</tr>
+</tbody>
+</table>
+<p><strong>¹</strong> <em>Illustrative index values:</em> NFIB Small Business Optimism Index (Dec 2024 vs Feb 2025).<br>
+<strong>²</strong> <em>Approximate S&amp;P&nbsp;500 levels:</em> reflecting that investors “wiped out all the gains” made after Trump’s election by early March (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=businesses,shaken%20business%20and%20consumer%20confidence">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>).</p>
+<p>As shown above, the <strong>labor market remained resilient but showed signs of cooling.</strong> The U.S. added an estimated 276,000 jobs in January and February combined, about 19% fewer than the same period a year prior (<a href="https://www.forbes.com/sites/dereksaul/2025/03/07/us-added-151000-jobs-as-unemployment-rose-to-41-in-february/#:~:text=U,year%20decrease">U.S. Added 151,000 Jobs As Unemployment Rose To 4.1 … - Forbes</a>). The unemployment rate in February edged up to 4.1% from 4.0%, indicating a modest softening (<a href="https://www.cnn.com/business/live-news/us-jobs-report-february-2025/index.html#:~:text=Economists%20had%20forecast%20160%2C000%20jobs,comes%20as%20the%20Trump">The US economy added 151,000 jobs last month and the … - CNN</a>). Notably, government employment fell by tens of thousands as federal agencies began implementing Trump’s workforce cuts. In fact, Trump’s <strong>“DOGE” layoffs helped push U.S. layoff figures to post-pandemic highs</strong> in early 2025, according to market observers (<a href="https://www.marketwatch.com/livecoverage/february-2025-jobs-report-today#:~:text=U,Is%20the">U.S. adds 151000 jobs, but Trump tumult to weigh on hiring plans</a>). Private hiring was described as “tepid” – many businesses took a wait-and-see stance amid the new administration’s unpredictable policy moves (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=Sign%20up%20here">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>).</p>
+<p><strong>Inflation decelerated</strong> in the first two months. Consumer prices were up 2.8% year-over-year in February, down from 3.0% in January (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=egg%20prices%20on%20his%20first,day%20in%20office">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>), continuing a downward trend. However, economists cautioned that this <strong>“tame” inflation picture might be short-lived</strong>, because the February data did not yet reflect Trump’s tariff actions (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=But%20the%20relief%20offered%20by,to%20upgrade%20their%20inflation%20forecasts">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). The cascade of new import duties in March caused a spike in inflation expectations (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=But%20the%20relief%20offered%20by,to%20upgrade%20their%20inflation%20forecasts">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). Analysts predicted that upcoming reports would show price increases for affected goods, and the Federal Reserve, which had paused interest rate moves, might consider rate cuts if trade tensions slowed growth (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=The%20stock%20market%20has%20suffered,economic%20expansion">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>) (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=With%20the%20economic%20outlook%20deteriorating,its%20easing%20cycle%20in%20January">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). Indeed, <strong>Trump’s trade war jolted financial markets:</strong> by mid-March, stock indices had <strong>suffered heavy losses as trade tensions threatened the economic expansion</strong> (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=The%20stock%20market%20has%20suffered,economic%20expansion">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>). Investors reacted to Trump’s on-again/off-again tariff announcements with volatility. Reuters reported that by March 11, stocks had <strong>“wiped out all the gains” made in the relief rally after Trump’s November election victory</strong> (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=businesses,shaken%20business%20and%20consumer%20confidence">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>). Fears of a recession increased as businesses warned that higher import costs and foreign retaliation could hurt profits (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=There%20were%201,shaken%20business%20and%20consumer%20confidence">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>).</p>
+<p><strong>Business sentiment turned more cautious.</strong> The NFIB small business confidence index and other surveys fell for three consecutive months, reaching their lowest since early 2024 (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=,ebbs%20for%20third%20straight%20month">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>). According to the U.S. Chamber of Commerce and other groups, companies were concerned about the uncertainty of Trump’s policies – especially trade policy “whiplash” and the aggressive regulatory swings. One report noted that <strong>Trump’s unpredictable tariffs “shook business and consumer confidence”</strong>, making firms hesitant to hire or invest until policies stabilized (<a href="https://www.reuters.com/markets/us/us-job-openings-increase-january-layoffs-decline-2025-03-11/#:~:text=There%20were%201,shaken%20business%20and%20consumer%20confidence">US job openings rise, layoffs low before Trump policy shifts | Reuters</a>). Sectors like agriculture and manufacturing, which are sensitive to trade, grew worried about export markets. At the same time, industries favored by Trump’s agenda experienced optimism: oil and gas executives, for example, voiced confidence that deregulation would boost production and profits, and defense contractors anticipated higher military spending given Trump’s promises to “restore America’s fighting force” (per his executive orders) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>) (<a href="https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025#:~:text=">Federal Register :: Executive Orders</a>). Still, the prevailing mood in the broader business community was one of caution due to the rapid and sweeping nature of changes.</p>
+<p><strong>Social and political impacts</strong> were dramatic in this initial period. Trump’s actions prompted intense reactions across the country. Supporters rallied behind the President’s swift fulfillment of campaign promises, but <strong>opposition mobilized quickly.</strong> In fact, <strong>all 50 states saw protests</strong> against Trump’s early policies. On February 5, a grassroots network organized coordinated rallies at every state capitol (the “50501 Movement”) to decry Trump’s executive orders and the Project 2025 agenda (<a href="https://www.fox9.com/news/50-states-50-protests-feb-5-2025#:~:text=ST,buildings%20in%20all%2050%20states">50 states, 50 protests against Project 2025, Trump orders planned for Feb.&nbsp;5 | FOX 9 Minneapolis-St.&nbsp;Paul</a>) (<a href="https://www.fox9.com/news/50-states-50-protests-feb-5-2025#:~:text=The%2050%20states%2C%2050%20protests%2C,back%20in%20the%20White%20House">50 states, 50 protests against Project 2025, Trump orders planned for Feb.&nbsp;5 | FOX 9 Minneapolis-St.&nbsp;Paul</a>). Less than a fortnight later, on Presidents’ Day, thousands more protesters gathered in cities nationwide for “Not My President’s Day” demonstrations. They protested what organizers called “the antidemocratic and illegal actions” of the Trump administration (<a href="https://www.theatlantic.com/photo/2025/02/thousands-gather-protest-against-trump-musk/681721/#:~:text=Protesters%20rallied%20in%20cities%20across,California%20to%20Massachusetts%20and%20Florida">‘Not My President’s Day’: Thousands Gather in Protest Against Trump - The Atlantic</a>). Many demonstrators specifically targeted Elon Musk’s role and the mass federal layoffs, chanting slogans against autocracy and carrying signs like “No Kings!” (<a href="https://www.theatlantic.com/photo/2025/02/thousands-gather-protest-against-trump-musk/681721/#:~:text=Protesters%20rallied%20in%20cities%20across,California%20to%20Massachusetts%20and%20Florida">‘Not My President’s Day’: Thousands Gather in Protest Against Trump - The Atlantic</a>).</p>
+<p>(<a href="https://www.rsn.org/001/not-my-presidents-day-thousands-gather-in-protest-against-trump.html?print=1">‘Not My President’s Day’: Thousands Gather in Protest Against Trump</a>) <em>Protesters rally near the U.S. Capitol on Presidents’ Day 2025 against President Trump’s early agenda. An upside-down American flag (a sign of distress) is flown as demonstrators oppose what they call “antidemocratic” actions by the administration (<a href="https://www.theatlantic.com/photo/2025/02/thousands-gather-protest-against-trump-musk/681721/#:~:text=Protesters%20rallied%20in%20cities%20across,California%20to%20Massachusetts%20and%20Florida">‘Not My President’s Day’: Thousands Gather in Protest Against Trump - The Atlantic</a>).</em></p>
+<p>Legal challenges also surged as part of the social response. As noted, over 100 lawsuits were filed in the first several weeks, coming from states, NGOs, and affected individuals (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=number%20of%20executive%20orders%20he,year%20term">Trump sets torrid pace in first 50 days in office | Capital Press</a>). Courts began to act as a check: for example, a federal judge blocked the administration from firing a member of the NLRB without cause, questioning Trump’s broad claim of removal power (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=By%20Daniel%20Wiessner">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>). Another court ordered the temporary unfreezing of certain congressionally appropriated funds that the administration had tried to halt (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=March%206%2C%202025">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>) (such as a case where the National Endowment for Democracy sued over $239&nbsp;million in withheld grants). These early legal interventions slowed some of Trump’s initiatives, though many cases remained to be decided.</p>
+<p>On the whole, the <strong>socio-economic landscape in early 2025 was one of heightened turbulence.</strong> Economic indicators showed a recovery that was still intact but facing new headwinds from protectionist policies. Financial markets and business leaders signaled concern over policy instability, even as Trump touted the stock market when it rose and downplayed downturns as “adjustments.” Socially, the country experienced deepening polarization: Trump’s base remained energized by his rapid actions, while opponents mounted a “resistance” that included nationwide protests, legal battles, and public campaigns to defend vulnerable communities (immigrants, LGBTQ individuals, etc.) affected by the new policies.</p>
+<p>Objectively, by the 50th day of Trump’s term, <strong>significant change was underway</strong>. The administration claimed “swift and unrelenting” progress on its agenda (<a href="https://ky.aflcio.org/news/todays-afl-cio-press-clips-855#:~:text=President%20Donald%20Trump%20touted%20the,to%20distance%20himself%20from%20it">Today’s AFL-CIO press clips | Kentucky State AFL-CIO</a>), pointing to dozens of fulfilled promises such as tax cut proposals (unveiled in outline to Congress) and the rollback of liberal policies. Economic data showed some positive signs like lower inflation, but also flashing warnings in sentiment and markets. The country’s political discourse had shifted to debates over executive power, with Trump asserting expansive authority to reshape government and critics arguing he was overstepping constitutional bounds. In just 50 days, Trump “accomplished more…than most administrations accomplish in four or eight years,” he boasted to Congress (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=On%20March%204%2C%20a%20week,just%20getting%20started%2C%E2%80%9D%20he%20said">Trump sets torrid pace in first 50 days in office | Capital Press</a>). Whether one views that as a list of achievements or alarms, there is no doubt that the first 50 days of 2025 set a decisive and contentious tone – one that would define the trajectory of the Trump administration and its impact on the United States.</p>
+<p><strong>Sources:</strong> This analysis is based on reporting from reputable outlets and official records, including executive order texts in the <em>Federal Register</em>, news analyses by <em>Reuters</em>, <em>NPR</em>, <em>Forbes</em>, and others, economic data from the Bureau of Labor Statistics, and contemporary accounts of public and legal responses. Key references are cited in the text for verification (<a href="https://www.reuters.com/markets/us/us-consumer-price-growth-slows-february-2025-03-12/#:~:text=The%20stock%20market%20has%20suffered,economic%20expansion">US consumer inflation slows in February; tariffs expected to boost prices | Reuters</a>) (<a href="https://capitalpress.com/2025/03/13/trump-sets-torrid-pace-in-first-50-days-in-office/#:~:text=Trump%20has%20moved%20too%20fast,year%20term">Trump sets torrid pace in first 50 days in office | Capital Press</a>) (<a href="https://www.theatlantic.com/photo/2025/02/thousands-gather-protest-against-trump-musk/681721/#:~:text=Protesters%20rallied%20in%20cities%20across,California%20to%20Massachusetts%20and%20Florida">‘Not My President’s Day’: Thousands Gather in Protest Against Trump - The Atlantic</a>), ensuring an objective and comprehensive overview of President Trump’s early term policies and their consequences.</p>
+
+
+
+</section>
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ethanroytman\.github\.io\/comm4190_S25_Using_LLMs_Blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
