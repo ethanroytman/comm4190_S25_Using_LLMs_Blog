@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/002 ethan_bpost/bpost_2.html</loc>
-    <lastmod>2025-03-15T22:37:39.257Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_ethan_bpost/Bpos3.html</loc>
-    <lastmod>2025-03-15T22:37:39.258Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/test_post/index.html</loc>
-    <lastmod>2025-03-15T22:37:39.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/004_ethan_bpost/Untitled.html</loc>
-    <lastmod>2025-03-15T22:37:39.262Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/index.html</loc>
-    <lastmod>2025-03-15T22:37:39.245Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
-    <lastmod>2025-03-15T22:37:39.245Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/001_ethan_bpost/bpost_1.html</loc>
-    <lastmod>2025-03-15T22:37:39.253Z</lastmod>
-  </url>
-  <url>
-    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/005_ethan_bpost/Blogpost5.html</loc>
-    <lastmod>2025-03-15T22:37:39.262Z</lastmod>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/006_ethan_bpost/Blogpost6.html</loc>
+    <lastmod>2025-03-19T01:06:59.504Z</lastmod>
   </url>
   <url>
     <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_ethan_bpost/Untitled.html</loc>
-    <lastmod>2025-03-15T22:37:39.258Z</lastmod>
+    <lastmod>2025-03-19T01:06:59.500Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/005_ethan_bpost/Blogpost5.html</loc>
+    <lastmod>2025-03-19T01:06:59.504Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/001_ethan_bpost/bpost_1.html</loc>
+    <lastmod>2025-03-19T01:06:59.495Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/about.html</loc>
+    <lastmod>2025-03-19T01:06:59.487Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/index.html</loc>
+    <lastmod>2025-03-19T01:06:59.487Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/004_ethan_bpost/Untitled.html</loc>
+    <lastmod>2025-03-19T01:06:59.503Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/test_post/index.html</loc>
+    <lastmod>2025-03-19T01:06:59.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/003_ethan_bpost/Bpos3.html</loc>
+    <lastmod>2025-03-19T01:06:59.500Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ethanroytman.github.io/comm4190_S25_Using_LLMs_Blog/posts/002 ethan_bpost/bpost_2.html</loc>
+    <lastmod>2025-03-19T01:06:59.499Z</lastmod>
   </url>
 </urlset>
