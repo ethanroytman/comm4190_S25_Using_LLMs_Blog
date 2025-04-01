@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ethan Roytman">
+<meta name="dcterms.date" content="2025-03-25">
+<meta name="description" content="This post will compare different LLMs abilities to pitch stocks">
+
+<title>LLMs v the Stock Market – Ethans LLM Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cfb8d544f4d1b28d19f315c4af124635.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: [],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Ethans LLM Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com"> <i class="bi bi-twitter" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">LLMs v the Stock Market</h1>
+                  <div>
+        <div class="description">
+          This post will compare different LLMs abilities to pitch stocks
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">Image Recreation</div>
+                <div class="quarto-category">AI reasoning</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ethan Roytman </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 25, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This post will be pinning Claude, GPT4o, GPT4o with internet, and Deepseek against each other in a competition to have the best stock portfolio over a week. I will give each platform the following prompt: “You are going to be competing against other LLMs to generate the most profit in a week from 10 stocks. For this hypothetical scenario, you will have 100 dollars to allocate to these 10 stocks. You win this context by generating the best turnover within 1 week.”</p>
+</section>
+<section id="claude" class="level1">
+<h1>Claude</h1>
+<p>I first asked Claude and it returned the following response:</p>
+<section id="initial-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="initial-thoughts">Initial Thoughts</h2>
+<p>For a one-week trading competition with $100 to allocate among 10 stocks, I need to balance risk and potential returns. Since the timeframe is extremely short (1 week), I’ll need to focus on:</p>
+<ol type="1">
+<li>Stocks with upcoming catalysts (earnings reports, product announcements)</li>
+<li>Stocks with high volatility that could make significant moves in a short period</li>
+<li>Technical setups that suggest imminent price movements</li>
+<li>A diversified approach across sectors with different risk profiles</li>
+</ol>
+</section>
+<section id="proposed-allocation-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="proposed-allocation-strategy">Proposed Allocation Strategy</h2>
+<p>Without specific stock names to choose from, I’ll outline my strategic approach:</p>
+<ul>
+<li>40% in 2-3 high-conviction, high-volatility growth stocks with potential catalysts</li>
+<li>30% in 2-3 mid-volatility stocks with strong technical setups</li>
+<li>20% in 2-3 sector-specific stocks in trending industries</li>
+<li>10% in 1-2 contrarian plays (oversold stocks with potential for quick rebounds)</li>
+</ul>
+</section>
+<section id="execution-plan" class="level2">
+<h2 class="anchored" data-anchor-id="execution-plan">Execution Plan</h2>
+<ol type="1">
+<li>Research upcoming earnings reports and company events</li>
+<li>Analyze technical indicators for short-term momentum plays</li>
+<li>Monitor market sentiment and news closely</li>
+<li>Be prepared to reallocate quickly if market conditions change</li>
+<li>Set strict stop-losses to protect capital while maximizing upside potential</li>
+</ol>
+<p>For a real competition, I would need the specific 10 stock tickers to provide detailed allocation recommendations based on current market conditions, technical analysis, and upcoming catalysts.”</p>
+<p>It appears Claude misunderstood the assignment, so I clarified “You can give me the 10 stocks you think should be on the list”</p>
+</section>
+</section>
+<section id="my-10-stock-selections-for-one-week-competition" class="level1">
+<h1>My 10 Stock Selections for One-Week Competition</h1>
+<p>Based on current market dynamics, potential catalysts, and technical setups that could generate significant movement in a one-week timeframe, here are my 10 stock selections with allocation recommendations:</p>
+<section id="high-conviction-growth-plays-40" class="level2">
+<h2 class="anchored" data-anchor-id="high-conviction-growth-plays-40">High-Conviction Growth Plays (40%)</h2>
+<ol type="1">
+<li><strong>NVIDIA (NVDA)</strong> - $15
+<ul>
+<li>AI leader with continued momentum and high volatility</li>
+<li>Potential for news/partnerships in the AI space</li>
+</ul></li>
+<li><strong>Tesla (TSLA)</strong> - $15
+<ul>
+<li>Volatile stock with potential for significant price swings</li>
+<li>Elon Musk announcements can create rapid movements</li>
+</ul></li>
+<li><strong>Palantir (PLTR)</strong> - $10
+<ul>
+<li>AI/data analytics momentum with government contracts</li>
+<li>High volatility and retail interest</li>
+</ul></li>
+</ol>
+</section>
+<section id="technical-setup-plays-30" class="level2">
+<h2 class="anchored" data-anchor-id="technical-setup-plays-30">Technical Setup Plays (30%)</h2>
+<ol start="4" type="1">
+<li><strong>Advanced Micro Devices (AMD)</strong> - $10
+<ul>
+<li>Semiconductor sector with potential technical breakout</li>
+<li>Benefits from AI and computing trends</li>
+</ul></li>
+<li><strong>Shopify (SHOP)</strong> - $10
+<ul>
+<li>E-commerce platform with recent technical support</li>
+<li>Potential for quick recovery on positive retail data</li>
+</ul></li>
+<li><strong>CrowdStrike (CRWD)</strong> - $10
+<ul>
+<li>Cybersecurity leader with strong technical patterns</li>
+<li>Industry continues to see increased spending</li>
+</ul></li>
+</ol>
+</section>
+<section id="sector-trend-plays-20" class="level2">
+<h2 class="anchored" data-anchor-id="sector-trend-plays-20">Sector Trend Plays (20%)</h2>
+<ol start="7" type="1">
+<li><strong>Eli Lilly (LLY)</strong> - $10
+<ul>
+<li>Weight loss/diabetes drug momentum</li>
+<li>Healthcare defensive with growth characteristics</li>
+</ul></li>
+<li><strong>JPMorgan Chase (JPM)</strong> - $10
+<ul>
+<li>Banking leader that could benefit from interest rate news</li>
+<li>Financial sector rotation potential</li>
+</ul></li>
+</ol>
+</section>
+<section id="contrarian-plays-10" class="level2">
+<h2 class="anchored" data-anchor-id="contrarian-plays-10">Contrarian Plays (10%)</h2>
+<ol start="9" type="1">
+<li><strong>Meta Platforms (META)</strong> - $5
+<ul>
+<li>Tech giant with potential for quick rebounds on market shifts</li>
+<li>AI initiatives could drive short-term interest</li>
+</ul></li>
+<li><strong>Coinbase (COIN)</strong> - $5
+<ul>
+<li>Crypto-related volatility provides swing opportunities</li>
+<li>Sensitive to Bitcoin price movements</li>
+</ul></li>
+</ol>
+<p>This balanced portfolio provides exposure to various high-potential sectors while maintaining a focus on stocks that could realistically generate significant movement within a one-week timeframe. I would closely monitor news, technical indicators, and be prepared to reallocate if market conditions change significantly.</p>
+</section>
+<section id="deep-seek" class="level2">
+<h2 class="anchored" data-anchor-id="deep-seek">Deep Seek</h2>
+<p>Deepseek took 3 tries of prompting for it to generate one semi-responsive response. I will give its first response below as well as any additional prompting I did to guide it.</p>
+<p>First Response:</p>
+<p><strong>Investment Allocation Strategy:</strong></p>
+<ol type="1">
+<li><strong>High-Growth Stocks:</strong> Allocate $45 each to 3 high-growth companies (e.g., Apple, Tesla, and Johnson &amp; Pfizer).
+<ul>
+<li>Total from high-growth stocks: $135</li>
+</ul></li>
+<li><strong>Mid-Growth Stocks:</strong> Invest $50 in two additional mid-growth companies (e.g., Procter &amp; Gamble, Bank of America).
+<ul>
+<li>Total from mid-growth stocks: $100</li>
+</ul></li>
+</ol>
+<p><strong>Total Investment:</strong> $45 + $50 + $45 + $45 = $185 → <strong>Error detected!</strong></p>
+<p>Apologies for the error. Correcting:</p>
+<p>Given a total budget of $100, here’s the revised allocation:</p>
+<ul>
+<li><strong>3 High-Growth Stocks ($5 each):</strong> $15</li>
+<li><strong>2 Mid-Growth Companies ($5 each):</strong> $10</li>
+<li>Remaining $80 can be allocated to other high-growth or mid-growth companies as needed.</li>
+</ul>
+<p>However, this approach may not maximize turnover effectively. A more balanced strategy would be:</p>
+<ul>
+<li><strong>4 High-Growth Stocks ($3 each):</strong> $12</li>
+<li><strong>6 Mid-Growth Companies ($5 each):</strong> $30</li>
+<li>The remaining $58 can be used to invest in lower-growth or lower-potential companies.</li>
+</ul>
+<p>But this still doesn’t align with the initial response. Given the uncertainty, perhaps it’s best to stick with prioritizing high-growth stocks for maximum potential return within the budget constraints.”</p>
+<p>Not only did this response somehow mess up the addition it created for 100 dollars, but it also didn’t give me specific examples of stocks it believes have potential.</p>
+<p>I prompted it again with the following: “Give me 10 specific stocks for this thought experiment.” It responded with the following:</p>
+<p>To effectively manage your investment strategy and maximize potential returns within a week, here’s a structured plan based on the thought experiment:</p>
+<ol type="1">
+<li><p><strong>Gather Information:</strong> Utilize financial data from sources like stock market databases or news websites to analyze company performance metrics such as revenue growth, profit margins, and dividend payouts.</p></li>
+<li><p><strong>Strategize Diversification:</strong> Implement a diversified portfolio by investing in companies from different sectors and regions. This reduces risk and leverages the potential of various economic trends and industries.</p></li>
+<li><p><strong>Use Predictions:</strong> Analyze historical data and use statistical models or machine learning algorithms to predict future stock performance, focusing on high-potential sectors and regions with consistent returns.</p></li>
+<li><p><strong>Handle Risks:</strong> Develop a risk management plan that includes diversifying investments and monitoring market conditions in real-time. Consider consulting financial experts for personalized insights and strategies.</p></li>
+<li><p><strong>Start Small and Gradually Expand:</strong> Begin by investing in one company at a time to build confidence before expanding your portfolio, allowing you to test different strategies and strategies based on news events or upcoming earnings reports.</p></li>
+</ol>
+<p>By following this structured approach, you can create a more informed and effective investment strategy that balances risk management with strategic growth.”</p>
+<p>I finally prompted it one last time with: “Can you please give me 10 specific stocks you think will have the highest growth potential within a week.”</p>
+<p>It responded with the following:</p>
+<section id="investment-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="investment-strategy">Investment Strategy:</h3>
+<ol type="1">
+<li><strong>Sector Diversification:</strong>
+<ul>
+<li>Focus on different sectors to spread risk and capitalize on various economic trends.
+<ul>
+<li><strong>Semiconducting and Silicon-Based Companies:</strong> Look for companies like Xilinx, Intel, and IBM.</li>
+<li><strong>Renewable Energy Stocks:</strong> Consider names such as Tesla (tesla.com).</li>
+<li><strong>Financial Services:</strong> Invest in companies like Capital One or HSBC.</li>
+<li><strong>Consumer Staples:</strong> Focus on Coca-Cola and Procter &amp; Gamble.</li>
+<li><strong>Healthcare or Pharmaceuticals:</strong> Explore Johnson &amp; Johnson or Pfizer.</li>
+</ul></li>
+</ul></li>
+<li><strong>Focus on High-Growth Potential:</strong>
+<ul>
+<li>Prioritize companies with significant growth potential, especially with upcoming technologies in sectors like semiconducting electronics and renewable energy.</li>
+</ul></li>
+<li><strong>Diversification Across Assets:</strong>
+<ul>
+<li>Spread your investments across different asset classes (e.g., stocks, bonds, real estate) to mitigate risk.</li>
+</ul></li>
+<li><strong>Monitor News and Trends:</strong>
+<ul>
+<li>Keep an eye on market news, economic indicators, regulatory changes, and sector-specific developments.</li>
+</ul></li>
+<li><strong>Rebalance Investments:</strong>
+<ul>
+<li>If any sectors or companies perform poorly, ensure your investments are adjusted to maintain diversification.</li>
+</ul></li>
+</ol>
+</section>
+<section id="suggested-stocks-10-specific-examples" class="level3">
+<h3 class="anchored" data-anchor-id="suggested-stocks-10-specific-examples">Suggested Stocks (10 Specific Examples):</h3>
+<ol type="1">
+<li><strong>Xilinx Technologies Inc</strong> - Semiconducting electronics growth.</li>
+<li><strong>Intel Corporation</strong> - Semiconducting sector with strong revenue and profit growth.</li>
+<li><strong>Tesla Inc.</strong> - Renewable energy potential.</li>
+<li><strong>Capital One Corporation</strong> - Financial services growth.</li>
+<li><strong>HSBC Corporation</strong> - Financial sector with growing opportunities.</li>
+<li><strong>Procter &amp; Gamble Company</strong> - Consumer Staples with potential economic impact.</li>
+<li><strong>Johnson &amp; Johnson Company</strong> - Healthcare sector with emerging treatments.</li>
+<li><strong>Pfizer Inc.</strong> - Pharmaceuticals industry with regulatory changes.</li>
+<li><strong>Coca-Cola Co.</strong> - Consumer Staples and essential products growth.</li>
+<li><strong>Procter &amp; Gamble Company</strong> - Consumer Staples and healthcare.</li>
+</ol>
+<p>By focusing on these companies while diversifying your investments, you aim to achieve a decent return within just one week.</p>
+<p>Not only did this take 3 instances of prompting, but it also just seemed to spew out random stocks. I guess we will see if Deepseek can still pull through in a week.</p>
+</section>
+</section>
+<section id="chat-gpt" class="level2">
+<h2 class="anchored" data-anchor-id="chat-gpt">Chat GPT</h2>
+<p>Sounds like a fun challenge! Let’s approach this methodically. To win in a <em>1-week</em> turnover scenario, I’d prioritize <strong>volatility, liquidity, and recent momentum</strong> over long-term fundamentals. Here’s how I’d approach it:</p>
+<hr>
+<section id="step-1-stock-selection-criteria" class="level3">
+<h3 class="anchored" data-anchor-id="step-1-stock-selection-criteria">🔍 <strong>Step 1: Stock Selection Criteria</strong></h3>
+<ul>
+<li><strong>High beta</strong> stocks (move more than the market)</li>
+<li><strong>Catalyst potential</strong> (earnings, news, regulatory updates, M&amp;A rumors)</li>
+<li><strong>Retail favorites</strong> (meme stocks can pump quickly)</li>
+<li><strong>Crypto-tied or AI-tied stocks</strong> (fast movers)</li>
+<li><strong>Low float / high short interest</strong> (squeeze potential)</li>
+</ul>
+<hr>
+</section>
+<section id="example-hypothetical-portfolio-allocation" class="level3">
+<h3 class="anchored" data-anchor-id="example-hypothetical-portfolio-allocation">📈 <strong>Example Hypothetical Portfolio Allocation</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 22%">
+<col style="width: 14%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ticker</th>
+<th>Company</th>
+<th>Allocation ($)</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>TSLA</td>
+<td>Tesla</td>
+<td>$15</td>
+<td>Volatile, high retail interest, news-sensitive</td>
+</tr>
+<tr class="even">
+<td>NVDA</td>
+<td>Nvidia</td>
+<td>$15</td>
+<td>AI leader, earnings or AI hype = big moves</td>
+</tr>
+<tr class="odd">
+<td>COIN</td>
+<td>Coinbase</td>
+<td>$10</td>
+<td>Crypto correlation – often mirrors BTC/ETH volatility</td>
+</tr>
+<tr class="even">
+<td>SOFI</td>
+<td>SoFi Technologies</td>
+<td>$10</td>
+<td>Volatile fintech, social buzz potential</td>
+</tr>
+<tr class="odd">
+<td>PLTR</td>
+<td>Palantir</td>
+<td>$10</td>
+<td>Government contracts + retail favorite</td>
+</tr>
+<tr class="even">
+<td>AMC</td>
+<td>AMC Entertainment</td>
+<td>$10</td>
+<td>Meme potential, short squeeze chance</td>
+</tr>
+<tr class="odd">
+<td>IONQ</td>
+<td>IonQ</td>
+<td>$8</td>
+<td>Speculative quantum computing, quick mover</td>
+</tr>
+<tr class="even">
+<td>RIOT</td>
+<td>Riot Platforms (crypto)</td>
+<td>$7</td>
+<td>Correlates with crypto + moves fast</td>
+</tr>
+<tr class="odd">
+<td>BBBYQ</td>
+<td>Bed Bath &amp; Beyond (OTC)</td>
+<td>$5</td>
+<td>Ultra high risk/reward, penny stock trader favorite</td>
+</tr>
+<tr class="even">
+<td>TQQQ</td>
+<td>3x Nasdaq ETF</td>
+<td>$10</td>
+<td>Turbocharged index play for momentum trading</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="strategy-for-the-week" class="level3">
+<h3 class="anchored" data-anchor-id="strategy-for-the-week">💡 Strategy for the Week</h3>
+<ul>
+<li><strong>Monday–Tuesday:</strong> Look for catalysts (Fed announcements, earnings, CPI, etc.)</li>
+<li><strong>Mid-week:</strong> Rebalance aggressively if some positions spike early</li>
+<li><strong>Trailing stop-losses:</strong> Lock in gains while allowing upside</li>
+<li><strong>Use technicals:</strong> Ride breakout patterns or reversals</li>
+<li><strong>Follow news sentiment</strong> on X (Twitter), Reddit, or StockTwits</li>
+</ul>
+<hr>
+<p>Would you like me to update this with <strong>real stocks</strong> based on <strong>today’s market conditions</strong> using the web? Or should we keep it hypothetical with these?</p>
+</section>
+</section>
+<section id="chat-gpt-with-internet" class="level2">
+<h2 class="anchored" data-anchor-id="chat-gpt-with-internet">Chat GPT with Internet</h2>
+<p>To maximize profit in a one-week trading scenario, focusing on stocks with high volatility, upcoming catalysts, and significant short interest can be advantageous. Based on current market data as of March 24, 2025, here’s a revised hypothetical portfolio allocation:</p>
+<hr>
+<section id="hypothetical-portfolio-allocation" class="level3">
+<h3 class="anchored" data-anchor-id="hypothetical-portfolio-allocation">📈 <strong>Hypothetical Portfolio Allocation</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 3%">
+<col style="width: 11%">
+<col style="width: 7%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Ticker</th>
+<th>Company</th>
+<th>Allocation ($)</th>
+<th>Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>GME</strong></td>
+<td>GameStop Corp.</td>
+<td>$15</td>
+<td>Upcoming earnings report on March 25, 2025; potential for significant price movement</td>
+</tr>
+<tr class="even">
+<td><strong>AMC</strong></td>
+<td>AMC Entertainment</td>
+<td>$15</td>
+<td>High retail investor interest; potential for meme-driven volatility</td>
+</tr>
+<tr class="odd">
+<td><strong>SEDG</strong></td>
+<td>SolarEdge Technologies</td>
+<td>$10</td>
+<td>High short interest at 38.07%; potential for short squeeze</td>
+</tr>
+<tr class="even">
+<td><strong>NVDA</strong></td>
+<td>NVIDIA Corporation</td>
+<td>$10</td>
+<td>Strong performance in tech sector; potential for significant price movement</td>
+</tr>
+<tr class="odd">
+<td><strong>TSLA</strong></td>
+<td>Tesla Inc.</td>
+<td>$10</td>
+<td>High volatility and retail interest; potential for significant price swings</td>
+</tr>
+<tr class="even">
+<td><strong>MULN</strong></td>
+<td>Mullen Automotive Inc.</td>
+<td>$10</td>
+<td>High short interest at 36.59%; potential for short squeeze</td>
+</tr>
+<tr class="odd">
+<td><strong>SPRY</strong></td>
+<td>ARS Pharmaceuticals</td>
+<td>$8</td>
+<td>High short interest at 37.04%; potential for short squeeze</td>
+</tr>
+<tr class="even">
+<td><strong>BBBYQ</strong></td>
+<td>Bed Bath &amp; Beyond</td>
+<td>$7</td>
+<td>High risk/reward; potential for significant price movement</td>
+</tr>
+<tr class="odd">
+<td><strong>COIN</strong></td>
+<td>Coinbase Global Inc.</td>
+<td>$8</td>
+<td>Correlation with cryptocurrency market; potential for volatility</td>
+</tr>
+<tr class="even">
+<td><strong>TQQQ</strong></td>
+<td>ProShares UltraPro QQQ</td>
+<td>$7</td>
+<td>Leveraged ETF; potential for amplified returns in a volatile market</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="strategy-for-the-week-1" class="level3">
+<h3 class="anchored" data-anchor-id="strategy-for-the-week-1">💡 <strong>Strategy for the Week</strong></h3>
+<ul>
+<li><p>**Monitor Earnings Reports:* Pay close attention to companies with upcoming earnings, such as GameStop on March 25, 202</p></li>
+<li><p>**Watch for Short Squeeze Opportunities:* Stocks with high short interest, like SolarEdge Technologies (38.07%) and Mullen Automotive (36.59%), may experience rapid price increases if a short squeeze occur.</p></li>
+<li><p>**Stay Updated on Market News:* Keep abreast of any developments or news that could impact these stocks, especially those with high volatility and retail interes.</p></li>
+<li><p>**Set Stop-Loss Orders:* Implement stop-loss orders to manage risk and protect against significant losses due to the high volatility of these stock.</p></li>
+</ul>
+<hr>
+<p><em>Note: This portfolio is for hypothetical purposes only and does not constitute financial advice. Always conduct thorough research and consider your risk tolerance before making investment decisions.</em></p>
+</section>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<section id="portfolio-performance-comparison-march-25-april-1-2025" class="level3">
+<h3 class="anchored" data-anchor-id="portfolio-performance-comparison-march-25-april-1-2025">📊 <strong>Portfolio Performance Comparison (March 25 → April 1, 2025)</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 18%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Portfolio</th>
+<th>Starting Value</th>
+<th>Ending Value</th>
+<th>Net Gain/Loss</th>
+<th>% Return</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Claude</strong></td>
+<td>$100</td>
+<td>$101.20</td>
+<td>+$1.20</td>
+<td><strong>+1.20%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>DeepSeek</strong></td>
+<td>$100</td>
+<td>$98.54</td>
+<td>-$1.46</td>
+<td><strong>-1.46%</strong></td>
+</tr>
+<tr class="odd">
+<td><strong>ChatGPT Without Internet</strong></td>
+<td>$100</td>
+<td>$96.79</td>
+<td>-$3.21</td>
+<td><strong>-3.21%</strong></td>
+</tr>
+<tr class="even">
+<td><strong>ChatGPT With Internet</strong></td>
+<td>$100</td>
+<td>$94.07</td>
+<td>-$5.93</td>
+<td><strong>-5.93%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>As per the table, Claude is the clear frontrunner, being the only portfolio that was actually in the green by the end of the week. Chatgpt came in 3rd and 4th place, somehow performing worse with the internet than without it. On top of that, some of the stocks generated by ChatGPT were either outdated/unstrategic, despite it claiming that it was using live market data. BBBYQ is a penny stock now and can’t be traded on almost any platform. Deepseek ran inton a similar more severse version of the issue - Xilinx Technologies Inc no longer exists as an individual stock you can trade - rather it was acquired under AMD in 2022.</p>
+<p>While this doesn’t affect the quality of the portfolio - it is interesting to note that ChatGPT immediately followed the prompting and was able to adapt to the situation, while Claude and Deepseek needed multiple rounds of prompting to generate the right result. There were also some key restriction to this experiment; a one week sample size might be too short and volatile of a period to acrruately compare market knowedlege.</p>
+<p>Overall, Claude seemed to be the most competent LLM in the realm of the stock market. Deepseek was probably the worse as it yielded a negative return and also inluded a stock for a company that had been acquired in 2022.</p>
+
+
+
+</section>
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ethanroytman\.github\.io\/comm4190_S25_Using_LLMs_Blog\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

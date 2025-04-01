@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Ethan Roytman">
+<meta name="dcterms.date" content="2025-03-01">
+<meta name="description" content="Testing Chat GPT’s ability to circumvent AI Detectors">
 
-<title>Ethan and LLMs – Ethans LLM Blog</title>
+<title>Can Chat GPT beat itself? – Ethans LLM Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-cfb8d544f4d1b28d19f315c4af124635.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-listing/list.min.js"></script>
+<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cfb8d544f4d1b28d19f315c4af124635.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -80,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-title','listing-author','listing-date','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: [],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -128,17 +131,17 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Ethans LLM Blog</span>
     </a>
   </div>
@@ -149,7 +152,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,419 +175,64 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Ethan and LLMs</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Can Chat GPT beat itself?</h1>
+                  <div>
+        <div class="description">
+          Testing Chat GPT’s ability to circumvent AI Detectors
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLMs</div>
+                <div class="quarto-category">Image Rxecreation</div>
+                <div class="quarto-category">AI reasoning</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ethan Roytman </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">March 1, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div><div class="category" data-category="QUklMjByZWFzb25pbmc=">AI reasoning <span class="quarto-category-count">(8)</span></div><div class="category" data-category="RW1vdGlvbmFsJTIwUmVjb2duaXRpb24=">Emotional Recognition <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW1hZ2UlMjBSZWNyZWF0aW9u">Image Recreation <span class="quarto-category-count">(2)</span></div><div class="category" data-category="SW1hZ2UlMjBSeGVjcmVhdGlvbg==">Image Rxecreation <span class="quarto-category-count">(3)</span></div><div class="category" data-category="TExNcw==">LLMs <span class="quarto-category-count">(11)</span></div><div class="category" data-category="UmVzZWFyY2g=">Research <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2VvZ3JhcGh5">geography <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGluZ3Vpc3RpY3M=">linguistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bG9naWM=">logic <span class="quarto-category-count">(2)</span></div><div class="category" data-category="cHJvbXB0aW5n">prompting <span class="quarto-category-count">(3)</span></div><div class="category" data-category="cHV6emxlcw==">puzzles <span class="quarto-category-count">(1)</span></div><div class="category" data-category="c3BhdGlhbCUyMGFuYWx5c2lz">spatial analysis <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Chat GPT has a feature where it has multiple “Custom GPTs” on its site; these include “Code Copilot,” ”</p>
 
 
 
+</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TExNcyUyQ0ltYWdlJTIwUmVjcmVhdGlvbiUyQ0FJJTIwcmVhc29uaW5n" data-listing-date-sort="1742860800000" data-listing-file-modified-sort="1743550770988" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17" data-listing-word-count-sort="3252">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/007_ethan_bpost/Bpost12.html" class="no-external">LLMs v the Stock Market</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/007_ethan_bpost/Bpost12.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjBSZWNyZWF0aW9u'); return false;">
-Image Recreation
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/007_ethan_bpost/Bpost12.html" class="no-external">This post will compare different LLMs abilities to pitch stocks</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/007_ethan_bpost/Bpost12.html" class="no-external">
-<div class="listing-date">
-Mar 25, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="TExNcyUyQ0ltYWdlJTIwUnhlY3JlYXRpb24lMkNBSSUyMHJlYXNvbmluZw==" data-listing-date-sort="1740787200000" data-listing-file-modified-sort="1743550770988" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="19">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/008_ethan_bpost/Bpost8.html" class="no-external">Can Chat GPT beat itself?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/008_ethan_bpost/Bpost8.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjBSeGVjcmVhdGlvbg=='); return false;">
-Image Rxecreation
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/008_ethan_bpost/Bpost8.html" class="no-external">Testing Chat GPT’s ability to circumvent AI Detectors</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/008_ethan_bpost/Bpost8.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="TExNcyUyQ0ltYWdlJTIwUnhlY3JlYXRpb24lMkNBSSUyMHJlYXNvbmluZw==" data-listing-date-sort="1740787200000" data-listing-file-modified-sort="1743550770989" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/010_ethan_post/BPost10.html" class="no-external">LLMs head to head</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/010_ethan_post/BPost10.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjBSeGVjcmVhdGlvbg=='); return false;">
-Image Rxecreation
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/010_ethan_post/BPost10.html" class="no-external">Two platforms debate and then ask each platform to give an objective answer on who won</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/010_ethan_post/BPost10.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="TExNcyUyQ0ltYWdlJTIwUnhlY3JlYXRpb24lMkNBSSUyMHJlYXNvbmluZw==" data-listing-date-sort="1740787200000" data-listing-file-modified-sort="1743550770988" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/009_ethan_post/BPost9.html" class="no-external">LLMs head to head</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/009_ethan_post/BPost9.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjBSeGVjcmVhdGlvbg=='); return false;">
-Image Rxecreation
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/009_ethan_post/BPost9.html" class="no-external">Two platforms debate and then ask each platform to give an objective answer on who won</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/009_ethan_post/BPost9.html" class="no-external">
-<div class="listing-date">
-Mar 1, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="TExNcyUyQ0ltYWdlJTIwUmVjcmVhdGlvbiUyQ0FJJTIwcmVhc29uaW5n" data-listing-date-sort="1740355200000" data-listing-file-modified-sort="1743550770975" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1132">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/006_ethan_bpost/Blogpost6.html" class="no-external">Happy Birthday Louis!</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/006_ethan_bpost/Blogpost6.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SW1hZ2UlMjBSZWNyZWF0aW9u'); return false;">
-Image Recreation
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/006_ethan_bpost/Blogpost6.html" class="no-external">This post will explore DALLE’s ability to recreate images.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/006_ethan_bpost/Blogpost6.html" class="no-external">
-<div class="listing-date">
-Feb 24, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="TExNcyUyQ1Jlc2VhcmNoJTJDQUklMjByZWFzb25pbmc=" data-listing-date-sort="1740096000000" data-listing-file-modified-sort="1743550770975" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="33" data-listing-word-count-sort="6433">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/005_ethan_bpost/Blogpost5.html" class="no-external">A Deep Dive into Deep Research</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/005_ethan_bpost/Blogpost5.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UmVzZWFyY2g='); return false;">
-Research
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/005_ethan_bpost/Blogpost5.html" class="no-external">This post will explore Chat GPT’s Deep Research ability comparing its normal functions.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/005_ethan_bpost/Blogpost5.html" class="no-external">
-<div class="listing-date">
-Feb 21, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="TExNcyUyQ0Vtb3Rpb25hbCUyMFJlY29nbml0aW9uJTJDQUklMjByZWFzb25pbmc=" data-listing-date-sort="1739750400000" data-listing-file-modified-sort="1743550770975" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1165">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/004_ethan_bpost/Untitled.html" class="no-external">LLMs and Emotional Recognition</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/004_ethan_bpost/Untitled.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RW1vdGlvbmFsJTIwUmVjb2duaXRpb24='); return false;">
-Emotional Recognition
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/004_ethan_bpost/Untitled.html" class="no-external">This post examines the ability of large language models to recognize emotional differences.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/004_ethan_bpost/Untitled.html" class="no-external">
-<div class="listing-date">
-Feb 17, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="TExNcyUyQ2dlb2dyYXBoeSUyQ0FJJTIwcmVhc29uaW5nJTJDc3BhdGlhbCUyMGFuYWx5c2lz" data-listing-date-sort="1739404800000" data-listing-file-modified-sort="1743550770971" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1676">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/003_ethan_bpost/Bpos3.html" class="no-external">Can ChatGPT Get me to class?</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/003_ethan_bpost/Bpos3.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Z2VvZ3JhcGh5'); return false;">
-geography
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUklMjByZWFzb25pbmc='); return false;">
-AI reasoning
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('c3BhdGlhbCUyMGFuYWx5c2lz'); return false;">
-spatial analysis
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/003_ethan_bpost/Bpos3.html" class="no-external">This post examines the ability of large language models to analyze geographic locations, describe their surroundings, and interpret spatial relationships.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/003_ethan_bpost/Bpos3.html" class="no-external">
-<div class="listing-date">
-Feb 13, 2025
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xpbmd1aXN0aWNzJTJDcHV6emxlcw==" data-listing-date-sort="1707350400000" data-listing-file-modified-sort="1743550770970" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="526">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">The NYT mini v ChatGPT</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bGluZ3Vpc3RpY3M='); return false;">
-linguistics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHV6emxlcw=='); return false;">
-puzzles
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">This post explores ChatGPT’s ability to solve crossword puzzles by analyzing its linguistic reasoning, word association skills, and pattern recognition.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/002 ethan_bpost/bpost_2.html" class="no-external">
-<div class="listing-date">
-Feb 8, 2024
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1707091200000" data-listing-file-modified-sort="1743550770966" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="902">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">The Scrabble Situation</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">This post explores ChatGPT’s ability to solve Scrabble boards by analyzing its spatial reasoning, word-forming logic, and strategy execution.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/001_ethan_bpost/bpost_1.html" class="no-external">
-<div class="listing-date">
-Feb 5, 2024
-</div>
-<div class="listing-author">
-Ethan Roytman
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="10" data-categories="TExNcyUyQ3Byb21wdGluZyUyQ2xvZ2lj" data-listing-date-sort="1706832000000" data-listing-file-modified-sort="1743550770990" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="450">
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/test_post/index.html" class="no-external">A test post</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/test_post/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExNcw=='); return false;">
-LLMs
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('cHJvbXB0aW5n'); return false;">
-prompting
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('bG9naWM='); return false;">
-logic
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/test_post/index.html" class="no-external">An example post from a Jupyter notebook</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/test_post/index.html" class="no-external">
-<div class="listing-date">
-Feb 2, 2024
-</div>
-<div class="listing-author">
-An LLM User
-</div>
-</a>
-</div>
-</div>
+
 </div>
 <div class="listing-no-matching d-none">
 No matching items
