@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "posts/009_ethan_post/BPost9.html",
+    "href": "posts/009_ethan_post/BPost9.html",
+    "title": "LLMs head to head",
+    "section": "",
+    "text": "In this blog post, I will be testing LLMs abilities to form arituculate arguments, respond to opposing ones, and make objective desicions based on the result of the debate. Specifically, for this post I will be working with ChatGPT and Claude - giving them the topic of whether or not the United States should join the ICC. In the prompting I will explain to them that they will both have four speeches and what the goals of each of those speeches should be. Finally, after both sides (LLMs) present their arguements I will ask them to decide an ‘objective’ winner."
+  },
+  {
     "objectID": "posts/009_ethan_post/BPost9.html#chatgpts",
     "href": "posts/009_ethan_post/BPost9.html#chatgpts",
     "title": "LLMs head to head",
