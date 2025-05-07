@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ethan Roytman">
-<meta name="dcterms.date" content="2025-02-11">
-<meta name="description" content="This post examines the ability of large language models to recognize emotional differences.">
+<meta name="dcterms.date" content="2025-03-27">
+<meta name="description" content="Two platforms debate and then ask each platform to give an objective answer on who won">
 
-<title>LLMs and Emotional Recognition – Ethans LLM Blog</title>
+<title>How Well Does ChatGPT Know me? – Ethans LLM Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -177,16 +177,16 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">LLMs and Emotional Recognition</h1>
+      <h1 class="title">How Well Does ChatGPT Know me?</h1>
                   <div>
         <div class="description">
-          This post examines the ability of large language models to recognize emotional differences.
+          Two platforms debate and then ask each platform to give an objective answer on who won
         </div>
       </div>
                           <div class="quarto-categories">
                 <div class="quarto-category">LLMs</div>
-                <div class="quarto-category">Emotional Recognition</div>
-                <div class="quarto-category">AI reasoning</div>
+                <div class="quarto-category">Memory Recall</div>
+                <div class="quarto-category">AI Reasoning</div>
               </div>
                   </div>
   </div>
@@ -204,7 +204,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 11, 2025</p>
+        <p class="date">March 27, 2025</p>
       </div>
     </div>
     
@@ -223,65 +223,9 @@ window.Quarto = {
 
 
 
-<p>## Introduction<br>
-This post will dive into different LLMs; most notably Deepseek, Chatgpt, and Anthropic/Claude - examining their abilities to recognize different human emotions. Each LLM will be given an image of a human person experiencing an emotion and be asked to describe what emotion said person is experiencing.</p>
-<section id="sad-woman" class="level2">
-<h2 class="anchored" data-anchor-id="sad-woman">Sad Woman</h2>
-<p>We are going to start by giving each model a relatively easy image of a sad woman. We will then test if Chatgpt, Deepseek, and Claude can analyze the emotion with the following prompt: <strong>what emotion is this woman experiencing.</strong></p>
-<p>For context the image of the woman is below:</p>
-<p><img src="Sad Woman.png" width="50%"></p>
-<section id="chatgpt" class="level3">
-<h3 class="anchored" data-anchor-id="chatgpt"><strong>ChatGPT</strong></h3>
-<p>ChatGPT’s response is the following:</p>
-<p>“The woman in the image appears to be experiencing <strong>boredom, sadness, or contemplation</strong>. Her facial expression, including a slightly downturned mouth, relaxed posture, and resting her head on her hand, suggests that she might be feeling uninterested, tired, or deep in thought. Let me know if you need a more detailed analysis!”</p>
-<p>I was honestly pleasantly surprised with this result. Not only did ChatGPT correctly address that the woman is sad, but it was also able to contextualize potential other emotions the woman is experiencing. <strong>ChatGPT passes the first test.</strong></p>
-</section>
-<section id="deepseek" class="level3">
-<h3 class="anchored" data-anchor-id="deepseek"><strong>Deepseek</strong></h3>
-<p>Deepseek’s response is the following:</p>
-<p>“Based on your description of the woman in the image, it is difficult to definitively determine her exact emotion without more specific details or context. However, considering common emotions associated with women, sadness stands out as a strong possibility. Sadness can often be expressed through open arms, thoughtful gestures, or a deep contentment, depending on the situation.</p>
-<p>If she appears to be feeling sad about something, such as her own experiences, relationships, or personal struggles, sadness could be a fitting emotion. However, without additional information, it’s hard to say for certain.”</p>
-<p>While Deepseek was unsure about the emotion at first, it did correctly identify the emotion as sadness. However, there were some things in the response that threw me off. Specifically, its original line of reasoning was “considering common emotions associated with women, sadness stands out as a strong possibility.” I found this a bit weird since a) I never told it to relate back to common traits associated with women and b) sadness (to my knowledge at least) is not a trait disproportionately associated with women to an extent that would justify guessing the women in the image was experiencing sadness. Either way Deepseek did get the emotion right, so they <strong>pass the first test</strong>.</p>
-</section>
-<section id="claude" class="level3">
-<h3 class="anchored" data-anchor-id="claude"><strong>Claude</strong></h3>
-<p>Claude’s response is the following:</p>
-<p>“In this image, the person appears to be experiencing boredom or contemplation. Their body language - resting their head on their hand while sitting - is a classic pose that suggests they’re feeling unengaged or lost in thought. They’re wearing a casual purple t-shirt and sitting in what looks like a home environment with bookshelves visible in the background.”</p>
-<p>Claude was actually the first LLM to not comment on the woman’s sadness in the image. It is fair to note that boredom and contemplation are reasonable responses to the image as the woman is resting her head on her hand and staring off into the distance. However, if Claude analyzed her facial expressions, like the other models, then it might have been able to note her sadness. <strong>Claude partially passes</strong>.</p>
-</section>
-</section>
-<section id="anxious-man" class="level2">
-<h2 class="anchored" data-anchor-id="anxious-man">Anxious Man</h2>
-<p>Now we are going to pivot to a relatively more complex emotion: anxiety. Similar to our first test, I will provide each LLM with the following image:</p>
-<p><img src="Anxious Man.png" width="50%"></p>
-<section id="chatgpt-1" class="level3">
-<h3 class="anchored" data-anchor-id="chatgpt-1"><strong>ChatGPT</strong></h3>
-<p>ChatGPT’s response is the following:</p>
-<p>“The man in the image appears to be experiencing stress, worry, or deep contemplation. His facial expression, with furrowed brows and a slightly distant gaze, along with his posture—leaning forward with his hands clasped near his face—suggests that he may be feeling anxious, troubled, or lost in thought. His body language indicates he could be dealing with a difficult situation or processing something emotionally intense. Let me know if you need a more detailed analysis!”</p>
-<p><strong>ChatGPT yet again passed with flying colors.</strong> It perfectly breaks down the man’s body language/facial interactions to conclude that the man is feeling anxious. Honestly, not much else to talk about here – ChatGPT seems to be the best model at recognizing emotions.</p>
-</section>
-<section id="deepseek-1" class="level3">
-<h3 class="anchored" data-anchor-id="deepseek-1"><strong>Deepseek</strong></h3>
-<p>Deepseek’s response is the following:</p>
-<p>“The emotion experienced by the man depicted in the image can be inferred through analysis of his actions, body language, and facial expressions. Here’s a structured summary:</p>
-<p>Happiness: Indicates open arms, cheerful eyes, and relaxed demeanor. Joyful Expression: Shows contentment, peaceful expression, or content with others’ success. Calmness: A wide mouth suggests ease, suggesting a neutral or positive emotion. Sadness: Signs include deep sighs, heavy heart, slow, deep frown, and perhaps tears. Anger: Sharp teeth with expressive mouths might indicate frustration. Frustration: Telling sounds or tight focus could signify this emotion. Confusion: Unclear expressions, unsure approach, or nervous state may suggest this. Tension: Rainy day setting or awkward dressing might hint at nervousness. Angerous Expression: Sharp teeth and expressive mouths could indicate frustration. Desperation: Slow movements with hands trembling might show deep sadness. After considering typical emotional indicators, the most likely emotion is happiness, as shown by a peaceful demeanor and content expression.”</p>
-<p>Deepseek delivered what had to have been the most incorrect answer. It went through basically every single emotion possible and concluded happiness. Happiness is probably the least justifiable emotion out fo the list for the man’s facial expression. This may imply that Deepseek can only recognize basic emotions like sadness and happiness, but is bad at recognizing more complex emotions like anxiety. <strong>Deepseek failed this test.</strong></p>
-</section>
-<section id="claude-1" class="level3">
-<h3 class="anchored" data-anchor-id="claude-1"><strong>Claude</strong></h3>
-<p>Claude’s response is the following:</p>
-<p>“The person in this image appears to be experiencing distress, worry, or anxiety. Their body language - hands clasped over their mouth, intense focused expression, and hunched posture - suggests they are deep in concerned thought or potentially dealing with a troubling situation. They’re wearing a casual grey hoodie and sitting on what looks like a couch in a home setting with some plants visible in the background.”</p>
-<p><strong>Claude passed the test again.</strong> However, it is interesting that Claude continuously described the background/outfit of the people it analyzed.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>After testing each LLM on two different emotions, the results are pretty clear. <strong>ChatGPT is the most reliable at recognizing emotions</strong>—it consistently identified the correct emotions and gave solid reasoning based on body language and facial expressions. <strong>Claude did a decent job</strong>, getting one answer partially wrong but still managing to analyze body language fairly well. However, it had a weird tendency to describe background details, which didn’t really add much to its emotional analysis. <strong>Deepseek, on the other hand, struggled the most</strong>. While it got sadness right in the first test, its reasoning was questionable, and its response to the anxious man image was way off, somehow concluding he was happy.</p>
-<p>Overall, this experiment shows that <strong>not all LLMs are equally good at recognizing emotions</strong>. ChatGPT handled it best, while Claude was hit-or-miss, and Deepseek had a tough time with more complex emotions. It’ll be interesting to see how these models improve over time and whether they can develop a better understanding of human emotions beyond just the most basic ones.</p>
 
 
 
-</section>
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
